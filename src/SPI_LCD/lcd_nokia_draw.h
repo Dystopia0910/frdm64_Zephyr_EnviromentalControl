@@ -1,4 +1,22 @@
-#include <stdio.h>
+/**
+ * @file    lcd_nokia_draw.h
+ *
+ * @brief   Drawing utilities for rendering shapes on the Nokia 5110 LCD.
+ *
+ * This header exposes user-friendly drawing primitives such as line rendering,
+ * pixel plotting, and simple geometric operations. All drawing functions operate
+ * on the LCD framebuffer managed by spi_lcd_nokia.c, enabling smooth updates
+ * and flicker-free rendering.
+ *
+ * The draw module acts as a lightweight graphics layer that supplements the
+ * text and bitmap capabilities of the SPI driver.
+ *
+ * @par
+ * Maciel Morones, David Missael
+ * Sistemas Operativos en Tiempo Real
+ */
+
+ #include <stdio.h>
 #include <stdint.h>
 
 typedef enum{

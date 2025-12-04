@@ -1,6 +1,21 @@
 /**
- * @file display_manager.h
- * @brief Display manager interface for Nokia LCD
+ * @file    display_manager.h
+ *
+ * @brief   LCD rendering interface for greenhouse system data.
+ *
+ * This module defines high-level drawing functions for presenting live sensor
+ * data, system mode, and configured setpoints on a Nokia 5110 display. It
+ * abstracts all low-level SPI communication and graphical operations through
+ * the underlying driver.
+ *
+ * The display_manager is responsible for UI consistency and synchronous updates
+ * triggered by the main application loop.
+ *
+ * @par
+ * Rodriguez Padilla, Daniel Jiram  
+ * IE703331  
+ * Martin del Campo, Mauricio  
+ * IE734429
  */
 
 #ifndef DISPLAY_MANAGER_H

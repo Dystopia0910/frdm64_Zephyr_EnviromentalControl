@@ -1,6 +1,21 @@
 /**
- * @file display_manager.c
- * @brief Display manager for Nokia LCD in environmental monitoring system
+ * @file    display_manager.c
+ *
+ * @brief   Implementation of Nokia LCD UI rendering for greenhouse monitoring.
+ *
+ * This module formats environmental values into human-readable output and draws
+ * them to the LCD framebuffer. It supports boot logos, live measurement updates,
+ * and contextual mode displays, ensuring that the user receives immediate visual
+ * feedback on system status.
+ *
+ * Display updates are triggered by the application layer and do not manage
+ * asynchronous state transitions on their own.
+ *
+ * @par
+ * Rodriguez Padilla, Daniel Jiram  
+ * IE703331  
+ * Martin del Campo, Mauricio  
+ * IE734429
  */
 
 #include <stdio.h>

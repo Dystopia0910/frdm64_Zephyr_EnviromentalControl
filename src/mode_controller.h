@@ -1,4 +1,21 @@
-#ifndef MODE_CONTROLLER_H
+/**
+ * @file    mode_controller.h
+ *
+ * @brief   Mode management API for switching between READ_ONLY and ADJUSTING modes.
+ *
+ * This module exposes functions to initialize the user mode interface (button + LED),
+ * explicitly change system mode, and run a background thread that toggles modes upon
+ * button presses. Mode changes propagate into the env_controller and may alter system
+ * behavior such as actuator control and UI updates.
+ *
+ * @par
+ * Rodriguez Padilla, Daniel Jiram  
+ * IE703331  
+ * Martin del Campo, Mauricio  
+ * IE734429
+ */
+
+ #ifndef MODE_CONTROLLER_H
 #define MODE_CONTROLLER_H
 
 #include <zephyr/kernel.h>

@@ -1,4 +1,26 @@
-#include <stdio.h>
+/**
+ * @file    spi_lcd_nokia.c
+ *
+ * @brief   SPI driver implementation for the Nokia 5110 LCD (PCD8544 controller).
+ *
+ * This module implements low-level communication with the Nokia 5110 display,
+ * including reset sequencing, command and data transmission, and framebuffer
+ * updates. It provides functions for clearing the screen, positioning the cursor,
+ * printing characters, writing raw bitmap data, and refreshing the display
+ * using a dedicated memory buffer.
+ *
+ * The driver relies on Zephyr’s `spi_dt_spec` and `gpio_dt_spec` APIs for full
+ * device-tree-based configuration, enabling clean integration with Zephyr RTOS
+ * applications such as the greenhouse control system.
+ *
+ * @note The display operates at 84x48 pixels and uses a 504-byte framebuffer.
+ *
+ * @par
+ * Maciel Morones, David Missael
+ * Sistemas Operativos en Tiempo Real
+ */
+
+ #include <stdio.h>
 #include <zephyr/device.h>
 #include <zephyr/drivers/spi.h>
 #include <zephyr/kernel.h>

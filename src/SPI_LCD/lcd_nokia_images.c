@@ -1,4 +1,22 @@
-#include "lcd_nokia_images.h"
+/**
+ * @file    lcd_nokia_images.c
+ *
+ * @brief   Bitmap definitions used by the Nokia 5110 LCD driver.
+ *
+ * This file contains the raw byte arrays representing pre-rendered images 
+ * such as institutional logos or NXP graphics. Each array corresponds to a
+ * complete 84x48 pixel screen (504 bytes), stored in row-major order to match
+ * the internal addressing scheme of the PCD8544 LCD controller.
+ *
+ * These assets can be rendered directly using `LCD_nokia_bitmap()` to display
+ * splash screens or static UI elements.
+ *
+ * @par
+ * Maciel Morones, David Missael
+ * Sistemas Operativos en Tiempo Real
+ */
+
+ #include "lcd_nokia_images.h"
 
 const uint8_t ITESO_Logo[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,

@@ -1,4 +1,23 @@
-#include "lcd_nokia_draw.h"
+/**
+ * @file    lcd_nokia_draw.c
+ *
+ * @brief   Implementation of drawing primitives for the Nokia 5110 LCD.
+ *
+ * This file provides basic geometric drawing support such as line interpolation
+ * using discrete pixel steps, with on-screen boundary checking to prevent illegal
+ * writes. Drawing operations modify the framebuffer maintained by the SPI LCD
+ * driver and must be followed by a framebuffer flush to update the visible
+ * display.
+ *
+ * These drawing utilities complement bitmap rendering and text output, enabling
+ * more advanced UI designs for embedded applications.
+ *
+ * @par
+ * Maciel Morones, David Missael
+ * Sistemas Operativos en Tiempo Real
+ */
+
+ #include "lcd_nokia_draw.h"
 #include "spi_lcd_nokia.h"
 
 uint8_t drawline(float x0, float y0, float x1, float y1,uint8_t mindots){

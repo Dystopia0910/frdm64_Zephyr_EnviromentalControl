@@ -1,6 +1,21 @@
 /**
- * @file sensor_manager.c
- * @brief Manager for all environmental sensors
+ * @file    sensor_manager.c
+ *
+ * @brief   Implementation of environmental sensor sampling routines.
+ *
+ * This module initializes and interfaces with configured sensors defined in
+ * the device tree. It performs synchronous sample acquisition, handles error
+ * reporting, and produces structured sensor_data_t outputs containing both
+ * raw values and validity indicators.
+ *
+ * These readings ultimately feed the env_controller structure and drive
+ * display, actuator, and Bluetooth reporting behavior.
+ *
+ * @par
+ * Rodriguez Padilla, Daniel Jiram  
+ * IE703331  
+ * Martin del Campo, Mauricio  
+ * IE734429
  */
 
 #include <zephyr/kernel.h>

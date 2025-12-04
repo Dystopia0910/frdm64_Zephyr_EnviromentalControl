@@ -1,4 +1,23 @@
-#include <stdio.h>
+/**
+ * @file    spi_lcd_nokia.h
+ *
+ * @brief   API for interfacing with the Nokia 5110 LCD via SPI.
+ *
+ * This header defines high-level functions used to initialize and control the
+ * Nokia 5110 display using the Zephyr SPI and GPIO subsystems. It allows users
+ * to send commands, write individual bytes, draw characters or text strings,
+ * load full-frame images, and update the display framebuffer.
+ *
+ * The module abstracts all hardware-level details such as command/data pin
+ * switching, reset line control, and SPI transactions, making the display easy
+ * to integrate into higher-level UI managers.
+ *
+ * @par
+ * Maciel Morones, David Missael
+ * Sistemas Operativos en Tiempo Real
+ */
+
+ #include <stdio.h>
 #include <zephyr/kernel.h>
 
 #define NOKIA_LCD_ERROR      0u

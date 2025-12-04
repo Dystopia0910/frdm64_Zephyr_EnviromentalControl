@@ -1,4 +1,25 @@
-#ifndef ADJUST_MANAGER_H
+/**
+ * @file    adjust_manager.h
+ *
+ * @brief   High-level API for applying setpoint changes and system adjustments.
+ *
+ * This module receives validated parameter updates (typically from UART/Bluetooth
+ * commands), ensures data integrity, and applies them to the environment
+ * controller. It also triggers actuator control logic, enabling or disabling
+ * motors or indicators based on real-time measurements compared to configured
+ * thresholds.
+ *
+ * The adjust_manager acts as the "decision layer" between raw command parsing
+ * and system state mutation.
+ *
+ * @par
+ * Rodriguez Padilla, Daniel Jiram  
+ * IE703331  
+ * Martin del Campo, Mauricio  
+ * IE734429
+ */
+
+ #ifndef ADJUST_MANAGER_H
 #define ADJUST_MANAGER_H
 
 #include "env_controller.h"

@@ -1,3 +1,24 @@
+/**
+ * @file    env_controller.h
+ *
+ * @brief   Global environment controller data structure and API.
+ *
+ * This module defines the central shared state of the greenhouse control system,
+ * including operating mode, real-time sensor measurements, and user-defined
+ * setpoints. All modules interact with this controller to read or modify system
+ * state safely through a mutex-protected structure.
+ *
+ * The env_controller acts as the synchronized "core" that ties together
+ * sensor_manager, display_manager, adjust_manager, mode_controller, and
+ * uart_bt modules.
+ *
+ * @par
+ * Rodriguez Padilla, Daniel Jiram  
+ * IE703331  
+ * Martin del Campo, Mauricio  
+ * IE734429
+ */
+
 #ifndef ENV_CONTROLLER_H
 #define ENV_CONTROLLER_H
 

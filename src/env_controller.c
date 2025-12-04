@@ -1,3 +1,20 @@
+/**
+ * @file    env_controller.c
+ *
+ * @brief   Implementation of global environment controller.
+ *
+ * This file defines the global instance of the environment controller (`env`),
+ * initializes its mutex, and sets default operating parameters such as initial
+ * mode and default setpoints. All system modules rely on this shared structure
+ * to synchronize access to greenhouse state information.
+ *
+ * @par
+ * Rodriguez Padilla, Daniel Jiram  
+ * IE703331  
+ * Martin del Campo, Mauricio  
+ * IE734429
+ */
+
 #include "env_controller.h"
 
 /* Global environment controller instance */

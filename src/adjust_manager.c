@@ -1,4 +1,24 @@
-#include <zephyr/sys/printk.h>
+/**
+ * @file    adjust_manager.c
+ *
+ * @brief   Implementation of setpoint adjustment and actuator control logic.
+ *
+ * This file validates and applies incoming setpoint changes, updates the global
+ * environment controller, and evaluates system measurements to control actuators
+ * such as ventilation, irrigation motors, and light indicators.
+ *
+ * The actuator control routine compares actual environmental readings against
+ * user-defined thresholds and activates or deactivates outputs accordingly.
+ * This enables automated greenhouse behavior driven by Bluetooth configuration.
+ *
+ * @par
+ * Rodriguez Padilla, Daniel Jiram  
+ * IE703331  
+ * Martin del Campo, Mauricio  
+ * IE734429
+ */
+
+ #include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
 
 #include "adjust_manager.h"

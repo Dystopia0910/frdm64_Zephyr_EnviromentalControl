@@ -1,4 +1,24 @@
-#include <zephyr/device.h>
+/**
+ * @file    uart_bt.c
+ *
+ * @brief   Implementation of Bluetooth UART communication for greenhouse control.
+ *
+ * This module sets up interrupt-driven UART reception for the HC-05 Bluetooth
+ * module, buffers incoming data into complete command strings, and dispatches
+ * parsed actions to adjust_manager. It also provides formatted telemetry and
+ * status reporting back to the remote user.
+ *
+ * The uart_bt thread serves as the communication bridge between the greenhouse
+ * system and external controllers, without directly modifying core state.
+ *
+ * @par
+ * Rodriguez Padilla, Daniel Jiram  
+ * IE703331  
+ * Martin del Campo, Mauricio  
+ * IE734429
+ */
+
+ #include <zephyr/device.h>
 #include <zephyr/drivers/uart.h>
 #include <zephyr/kernel.h>
 #include <string.h>

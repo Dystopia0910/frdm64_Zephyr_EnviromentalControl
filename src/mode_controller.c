@@ -1,4 +1,25 @@
-#include <zephyr/device.h>
+/**
+ * @file    mode_controller.c
+ *
+ * @brief   Implementation of greenhouse operating mode control.
+ *
+ * This module configures the hardware button and on-board LED and manages
+ * transitions between READ_ONLY and ADJUSTING modes. It updates the global
+ * environment controller (env) and ensures thread-safe operations through
+ * mutex protection.
+ *
+ * A dedicated thread waits for button interrupts and performs mode toggling,
+ * providing a simple local interface to override system behavior without
+ * relying on Bluetooth input.
+ *
+ * @par
+ * Rodriguez Padilla, Daniel Jiram  
+ * IE703331  
+ * Martin del Campo, Mauricio  
+ * IE734429
+ */
+
+ #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/kernel.h>
 #include <zephyr/sys/printk.h>

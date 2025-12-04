@@ -1,4 +1,24 @@
-#include <string.h>
+/**
+ * @file    command_parser.c
+ *
+ * @brief   Text command interpretation for greenhouse configuration.
+ *
+ * This module processes incoming ASCII commands received over UART/Bluetooth,
+ * extracting operational requests such as mode changes and setpoint updates.
+ * It uses a case-insensitive tokenization approach to support flexible input
+ * formatting while generating structured parser_result_t outputs.
+ *
+ * The command parser does not modify system state directly; instead, it provides
+ * validated results for adjust_manager to apply securely.
+ *
+ * @par
+ * Rodriguez Padilla, Daniel Jiram  
+ * IE703331  
+ * Martin del Campo, Mauricio  
+ * IE734429
+ */
+
+ #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdio.h>
