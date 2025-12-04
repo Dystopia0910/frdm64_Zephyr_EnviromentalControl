@@ -43,7 +43,7 @@ struct spi_buf_set rx = {
 	.count = 1,
 };
 
-static uint8_t LCDFrameBuffer[FRAMEBUFF_VER_SIZE][FRAMEBUFF_HOR_SIZE] = {0}; /*504 bytes*/
+uint8_t LCDFrameBuffer[FRAMEBUFF_VER_SIZE][FRAMEBUFF_HOR_SIZE] = {0}; /*504 bytes*/
 
 static const uint8_t ASCII[][5] =
 {
@@ -312,4 +312,10 @@ void LCD_nokia_sent_FrameBuffer(){
     for(index=0;index<FRAMEBUFF_TOTAL_SIZE;index++){
         LCD_nokia_write_byte(NOKIA_LCD_DATA,ptr[index]);
     }
+}
+
+/* Add this function somewhere in spi_lcd_nokia.c */
+uint8_t* LCD_nokia_get_frame_buffer(void)
+{
+    return &LCDFrameBuffer[0][0];
 }

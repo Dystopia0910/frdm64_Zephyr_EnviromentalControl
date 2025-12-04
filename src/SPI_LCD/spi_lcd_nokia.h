@@ -11,6 +11,9 @@
 #define NOKIA_LCD_CMD        0u
 #define CHAR_LENGTH          5u
 
+/* Add this after the includes */
+uint8_t* LCD_nokia_get_frame_buffer(void);
+
 extern int Nokia_Lcd_Init(void);
 /*it clears all the figures in the LCD*/
 void LCD_nokia_clear(void);
