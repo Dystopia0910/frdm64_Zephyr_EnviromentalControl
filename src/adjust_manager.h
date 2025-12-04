@@ -24,6 +24,10 @@
 
 #include "env_controller.h"
 
+void adjust_manager_init(void);
+void adjust_manager_update_actuators(void);
+
+
 /* Applies validated setpoints to the global controller */
 void adjust_manager_apply_new_setpoints(const env_setpoints_t *new_sp);
 

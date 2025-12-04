@@ -1,119 +1,118 @@
-/*
- * Copyright (c) 2012-2014 Wind River Systems, Inc.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
 /**
  * @file    main.c
  *
- * @brief   Application entry point for greenhouse control system.
+ * @brief   Application entry point for the real-time environmental monitoring
+ *          and control system.
  *
- * This file orchestrates initialization of environment state, sensors, display,
- * mode control, actuator management, and Bluetooth communication. It runs the
- * central update loop where fresh sensor data is sampled, UI elements are
- * refreshed, and actuator behavior is evaluated according to user-defined
- * setpoints.
- *
- * main.c serves as the high-level coordinator that binds together all modules
- * into a functioning real-time system.
+ * This file initializes all system modules, launches mode control and Bluetooth
+ * communication threads, and runs the main loop responsible for sampling sensors,
+ * updating the global environment controller, refreshing the display, and
+ * evaluating actuator behavior based on user-defined thresholds.
  *
  * @par
- * Rodriguez Padilla, Daniel Jiram  
- * IE703331  
- * Martin del Campo, Mauricio  
+ * Rodriguez Padilla, Daniel Jiram
+ * IE703331
+ * Martin del Campo, Mauricio
  * IE734429
  */
 
-#include <stdio.h>
-#include <zephyr/device.h>
-#include <zephyr/drivers/spi.h>
 #include <zephyr/kernel.h>
-#include "SPI_LCD/spi_lcd_nokia.h"
-#include "SPI_LCD/lcd_nokia_images.h"
-#include "SPI_LCD/lcd_nokia_draw.h"
-#include "display_manager.h"
-#include "sensor_manager.h"
+#include <zephyr/sys/printk.h>
+
 #include "env_controller.h"
-#include "adjust_manager.h"
-#include "command_parser.h"
+#include "sensor_manager.h"
+#include "display_manager.h"
 #include "mode_controller.h"
+#include "adjust_manager.h"
 #include "uart_bt.h"
 
-/* Update period for sensor readings (ms) */
-#define SENSOR_UPDATE_MS   1000
+#define MAIN_LOOP_PERIOD_MS   500
 
-/* Global mode variable — kept simple for now */
-static system_mode_t current_mode = MODE_READ_ONLY;
+/* Thread stacks */
+K_THREAD_STACK_DEFINE(mode_thread_stack, 1024);
+K_THREAD_STACK_DEFINE(bt_thread_stack,   2048);
 
-/* Converts sensor_data_t into display_data_t for the display manager */
-static void convert_sensor_to_display(const sensor_data_t *sens, display_data_t *disp)
-{
-    /* Copy values even if some are invalid; display manager will show them as-is */
-    disp->temperature = sens->temperature;
-    disp->light_level = sens->light_level;
-    disp->humidity    = sens->humidity;
-    disp->mode        = current_mode;
-}
-
-/* Process sensor errors (optional future expansion) */
-static void log_sensor_status(const sensor_data_t *data)
-{
-    if (!data->temperature_valid) {
-        printk("Warning: Temperature reading invalid\n");
-    }
-    if (!data->light_valid) {
-        printk("Warning: Light reading invalid\n");
-    }
-    if (!data->humidity_valid) {
-        printk("Warning: Humidity reading invalid\n");
-    }
-}
+/* Thread control blocks */
+static struct k_thread mode_thread;
+static struct k_thread bt_thread;
 
 int main(void)
 {
-    int ret;
+    printk("\n=== Starting Greenhouse Control System ===\n");
 
-    printk("=== System Boot ===\n");
+    /* Initialize global environment state */
+    env_controller_init();
 
-    /* --- Initialize display --- */
-    ret = display_init();
-    if (ret != 0) {
-        printk("ERROR: Display initialization failed\n");
-        return 0;
+    /* Initialize sensors */
+    if (sensor_manager_init() != 0) {
+        printk("ERROR: sensor_manager_init() failed!\n");
     }
 
-    /* Show logo for 2 seconds */
-    display_show_logo();
-
-    /* --- Initialize sensors --- */
-    ret = sensor_manager_init();
-    if (ret != 0) {
-        printk("ERROR: Sensor manager initialization failed: %s\n",
-               sensor_manager_get_error());
+    /* Initialize LCD display (driver + framebuffer) */
+    if (display_init() != 0) {
+        printk("ERROR: display_init() failed!\n");
     } else {
-        printk("Sensors initialized successfully\n");
+        /* Optional: show logo at startup if you want */
+        display_show_logo();
     }
 
-    /* Main loop */
+    /* Initialize actuator logic */
+    adjust_manager_init();
+
+    /* Initialize button-based mode control */
+    if (mode_controller_init() != 0) {
+        printk("ERROR: mode_controller_init() failed!\n");
+    }
+
+    /* Spawn mode controller thread */
+    k_thread_create(&mode_thread,
+                    mode_thread_stack,
+                    K_THREAD_STACK_SIZEOF(mode_thread_stack),
+                    mode_controller_thread,
+                    NULL, NULL, NULL,
+                    5, 0, K_NO_WAIT);
+
+    /* Spawn Bluetooth UART thread */
+    k_thread_create(&bt_thread,
+                    bt_thread_stack,
+                    K_THREAD_STACK_SIZEOF(bt_thread_stack),
+                    uart_bt_thread,
+                    NULL, NULL, NULL,
+                    5, 0, K_NO_WAIT);
+
+    /* ------------------------------------------------------------------ */
+    /*                         MAIN SYSTEM LOOP                           */
+    /* ------------------------------------------------------------------ */
+
     while (1) {
-        sensor_data_t sens;
+
+        /* 1. Read all environmental sensors */
+        sensor_data_t sensor_data;
+        sensor_manager_read_all(&sensor_data);
+
+        /* 2. Update global environment state */
+        k_mutex_lock(&env.lock, K_FOREVER);
+        env.measurements.temperature = sensor_data.temperature;
+        env.measurements.humidity    = sensor_data.humidity;
+        env.measurements.light       = sensor_data.light_level;
+        env_mode_t mode              = env.mode;
+        k_mutex_unlock(&env.lock);
+
+        /* 3. Prepare display data (no setpoints in display_data_t) */
         display_data_t disp;
+        disp.temperature = sensor_data.temperature;
+        disp.humidity    = sensor_data.humidity;
+        disp.light_level = sensor_data.light_level;
+        disp.mode        = mode;
 
-        /* Read all sensors */
-        if (sensor_manager_read_all(&sens) != 0) {
-            printk("ERROR reading sensors: %s\n", sensor_manager_get_error());
-        }
-
-        /* Optional debug information */
-        log_sensor_status(&sens);
-
-        /* Convert sensor structure into the display structure */
-        convert_sensor_to_display(&sens, &disp);
-
-        /* Update the screen */
+        /* 4. Update display */
         display_update(&disp);
 
-        k_msleep(SENSOR_UPDATE_MS);
+        /* 5. Update actuator states based on thresholds */
+        adjust_manager_update_actuators();
+
+        /* 6. Loop timing */
+        k_msleep(MAIN_LOOP_PERIOD_MS);
     }
 
     return 0;

@@ -18,7 +18,7 @@
  * IE734429
  */
 
- #include <zephyr/sys/printk.h>
+#include <zephyr/sys/printk.h>
 #include <zephyr/drivers/gpio.h>
 
 #include "adjust_manager.h"
@@ -28,7 +28,7 @@
 /* Actuator GPIO definitions from device tree aliases */
 #define FAN_NODE          DT_ALIAS(fan_actuator)
 #define IRRIGATION_NODE   DT_ALIAS(irrigation_actuator)
-#define LIGHT_NODE        DT_ALIAS(led0)   /* Onboard LED already exists */
+#define LIGHT_NODE        DT_ALIAS(led0)
 
 static const struct gpio_dt_spec fan_gpio =
         GPIO_DT_SPEC_GET(FAN_NODE, gpios);
@@ -47,7 +47,6 @@ static void adjust_manager_init_actuators(void)
     gpio_pin_configure_dt(&light_gpio, GPIO_OUTPUT_INACTIVE);
 }
 
-/* Call this ONCE from env_controller_init or main */
 void adjust_manager_init(void)
 {
     adjust_manager_init_actuators();
@@ -65,29 +64,17 @@ void adjust_manager_update_actuators(void)
     sp = env.setpoints;
     k_mutex_unlock(&env.lock);
 
-    /* --- LIGHT CONTROL using onboard LED --- */
-    if (m.light < sp.target_light) {
-        gpio_pin_set_dt(&light_gpio, 1);   /* Light is too low */
-    } else {
-        gpio_pin_set_dt(&light_gpio, 0);
-    }
+    /* Light control */
+    gpio_pin_set_dt(&light_gpio, (m.light < sp.target_light));
 
-    /* --- TEMPERATURE CONTROL (Fan Motor) --- */
-    if (m.temperature > sp.target_temperature) {
-        gpio_pin_set_dt(&fan_gpio, 1);     /* Activate fan */
-    } else {
-        gpio_pin_set_dt(&fan_gpio, 0);
-    }
+    /* Temperature control */
+    gpio_pin_set_dt(&fan_gpio, (m.temperature > sp.target_temperature));
 
-    /* --- HUMIDITY CONTROL (Irrigation Motor) --- */
-    if (m.humidity < sp.target_humidity) {
-        gpio_pin_set_dt(&irrigation_gpio, 1);  /* Activate pump */
-    } else {
-        gpio_pin_set_dt(&irrigation_gpio, 0);
-    }
+    /* Humidity control */
+    gpio_pin_set_dt(&irrigation_gpio, (m.humidity < sp.target_humidity));
 }
 
-/* These remain unchanged from earlier (setpoints, validation, etc.) */
+/* Apply new setpoints */
 void adjust_manager_apply_new_setpoints(const env_setpoints_t *new_sp)
 {
     if (!new_sp) return;
@@ -102,8 +89,33 @@ void adjust_manager_apply_new_setpoints(const env_setpoints_t *new_sp)
            new_sp->target_light);
 }
 
+/* Validation of setpoints */
 bool adjust_manager_validate(const env_setpoints_t *sp)
-{ … unchanged … }
+{
+    if (!sp) return false;
 
-void adjust_manager_process_action(...)
-{ … unchanged (for now until UART integration) … }
+    return !(sp->target_temperature < 0.0f || sp->target_temperature > 50.0f ||
+             sp->target_humidity    < 0.0f || sp->target_humidity    > 100.0f ||
+             sp->target_light       < 0.0f || sp->target_light       > 2000.0f);
+}
+
+/* Process parsed command from UART */
+void adjust_manager_process_action(env_mode_t requested_mode,
+                                   const env_setpoints_t *parsed_sp,
+                                   bool change_setpoints,
+                                   bool change_mode)
+{
+    /* Handle mode change */
+    if (change_mode) {
+        mode_controller_set_mode(requested_mode);
+    }
+
+    /* Handle setpoint update */
+    if (change_setpoints && parsed_sp) {
+        if (adjust_manager_validate(parsed_sp)) {
+            adjust_manager_apply_new_setpoints(parsed_sp);
+        } else {
+            printk("Invalid setpoints received.\n");
+        }
+    }
+}
