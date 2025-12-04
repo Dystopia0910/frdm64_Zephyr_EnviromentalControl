@@ -2997,7 +2997,9 @@
 /* Ordinals for what depends directly on this node: */
 #define DT_N_S_soc_S_gpio_400ff000_SUPPORTS_ORDS \
 	23, /* /gpio_keys */ \
-	25, /* /gpio_keys/button_1 */
+	25, /* /gpio_keys/button_1 */ \
+	26, /* /io_pins */ \
+	29, /* /io_pins/irrigation_motor */
 
 /* Existence and alternate IDs: */
 #define DT_N_S_soc_S_gpio_400ff000_EXISTS 1
@@ -3283,7 +3285,6 @@
 	26, /* /io_pins */ \
 	27, /* /io_pins/cmd_data */ \
 	28, /* /io_pins/fan_motor */ \
-	29, /* /io_pins/irrigation_motor */ \
 	30, /* /io_pins/reset_sign */ \
 	108, /* /soc/gpio@400ff080/dht11 */ \
 	111, /* /soc/i2c@40066000/fxos8700@1d */
@@ -3745,6 +3746,7 @@
 /* Ordinals for what this node depends on directly: */
 #define DT_N_S_io_pins_REQUIRES_ORDS \
 	0, /* / */ \
+	20, /* /soc/gpio@400ff000 */ \
 	22, /* /soc/gpio@400ff080 */
 
 /* Ordinals for what depends directly on this node: */
@@ -4033,7 +4035,7 @@
 
 /* Ordinals for what this node depends on directly: */
 #define DT_N_S_io_pins_S_irrigation_motor_REQUIRES_ORDS \
-	22, /* /soc/gpio@400ff080 */ \
+	20, /* /soc/gpio@400ff000 */ \
 	26, /* /io_pins */
 
 /* Ordinals for what depends directly on this node: */
@@ -4057,8 +4059,8 @@
 
 /* Generic property macros: */
 #define DT_N_S_io_pins_S_irrigation_motor_P_gpios_IDX_0_EXISTS 1
-#define DT_N_S_io_pins_S_irrigation_motor_P_gpios_IDX_0_PH DT_N_S_soc_S_gpio_400ff080
-#define DT_N_S_io_pins_S_irrigation_motor_P_gpios_IDX_0_VAL_pin 13
+#define DT_N_S_io_pins_S_irrigation_motor_P_gpios_IDX_0_PH DT_N_S_soc_S_gpio_400ff000
+#define DT_N_S_io_pins_S_irrigation_motor_P_gpios_IDX_0_VAL_pin 1
 #define DT_N_S_io_pins_S_irrigation_motor_P_gpios_IDX_0_VAL_pin_EXISTS 1
 #define DT_N_S_io_pins_S_irrigation_motor_P_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_io_pins_S_irrigation_motor_P_gpios_IDX_0_VAL_flags_EXISTS 1
@@ -14813,7 +14815,7 @@
 #define DT_N_S_soc_S_gpio_400ff080_S_dht11_P_dio_gpios_IDX_0_PH DT_N_S_soc_S_gpio_400ff080
 #define DT_N_S_soc_S_gpio_400ff080_S_dht11_P_dio_gpios_IDX_0_VAL_pin 3
 #define DT_N_S_soc_S_gpio_400ff080_S_dht11_P_dio_gpios_IDX_0_VAL_pin_EXISTS 1
-#define DT_N_S_soc_S_gpio_400ff080_S_dht11_P_dio_gpios_IDX_0_VAL_flags 17
+#define DT_N_S_soc_S_gpio_400ff080_S_dht11_P_dio_gpios_IDX_0_VAL_flags 0
 #define DT_N_S_soc_S_gpio_400ff080_S_dht11_P_dio_gpios_IDX_0_VAL_flags_EXISTS 1
 #define DT_N_S_soc_S_gpio_400ff080_S_dht11_P_dio_gpios_FOREACH_PROP_ELEM(fn) fn(DT_N_S_soc_S_gpio_400ff080_S_dht11, dio_gpios, 0)
 #define DT_N_S_soc_S_gpio_400ff080_S_dht11_P_dio_gpios_FOREACH_PROP_ELEM_SEP(fn, sep) fn(DT_N_S_soc_S_gpio_400ff080_S_dht11, dio_gpios, 0)

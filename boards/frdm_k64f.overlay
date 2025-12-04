@@ -28,19 +28,19 @@
             label = "LCD Reset";
         };
 
-        /* New actuators based on PTC12 and PTC13 */
+        /* Fan actuator stays on PTC12 */
         fan_motor: fan_motor {
             gpios = <&gpioc 12 GPIO_ACTIVE_HIGH>;
             label = "Ventilation Motor Control";
         };
 
+        /* Irrigation actuator moved to PTA1 */
         irrigation_motor: irrigation_motor {
-            gpios = <&gpioc 13 GPIO_ACTIVE_HIGH>;
+            gpios = <&gpioa 1 GPIO_ACTIVE_HIGH>;
             label = "Irrigation Motor Control";
         };
     };
 };
-
 
 /* --- LCD SPI interface (already working) ----------------------------------- */
 &spi0 {
@@ -50,33 +50,24 @@
 
     my_spi_device: spi-device@0 {
         compatible = "vnd,spi-device";
-        reg = <0>;                     /* CS0 */
-        spi-max-frequency = <1000000>; /* 1 MHz */
+        reg = <0>;
+        spi-max-frequency = <1000000>;
     };
 };
 
 /* --- LM35 Analog Temperature Sensor ---------------------------------------- */
-/* LM35 connected to PTD2 = ADC0_SE6a = ADC0 channel 6 */
 &adc0 {
     status = "okay";
 
     lm35_sensor: lm35 {
         compatible = "lm35";
-
-        /* LM35 output on PTD2 -> ADC0 channel 6 */
         io-channels = <&adc0 6>;
-
         status = "okay";
         label = "LM35 Temperature Sensor";
     };
 };
 
 /* --- BH1750 I2C Light Sensor ------------------------------------------------ */
-/* BH1750 connected to I2C0:
- *   SCL = PTE24
- *   SDA = PTE25
- * Sensor address = 0x23 (ADDR pin LOW)
- */
 &i2c0 {
     status = "okay";
     pinctrl-0 = <&i2c0_default>;
@@ -84,32 +75,33 @@
 
     bh1750_sensor: bh1750@23 {
         compatible = "rohm,bh1750";
-        reg = <0x23>;      /* Address when ADDR pin = LOW */
+        reg = <0x23>;
         status = "okay";
         label = "BH1750 Light Sensor";
     };
 };
 
 /* --- DHT11 Humidity Sensor -------------------------------------------------- */
-/* DHT11 connected to PTC3 */
 &gpioc {
     status = "okay";
 
     dht11_sensor: dht11 {
         compatible = "aosong,dht";
-
-        /* Data pin on PTC3 with pull-up enabled */
-        dio-gpios = <&gpioc 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-
-        /* No 'dht22' property means this is DHT11 (not DHT22) */
+        dio-gpios = <&gpioc 3 (GPIO_ACTIVE_HIGH)>;
         status = "okay";
         label = "DHT11 Humidity Sensor";
     };
 };
 
+/* --- Enable GPIOA for PTA1 -------------------------------------------------- */
+&gpioa {
+    status = "okay";
+};
+
+/* --- UART3 for Bluetooth ---------------------------------------------------- */
 &uart3 {
     status = "okay";
-    current-speed = <9600>;  // HC-05 típicamente usa 9600
+    current-speed = <9600>;
     pinctrl-0 = <&uart3_default>;
     pinctrl-names = "default";
 };

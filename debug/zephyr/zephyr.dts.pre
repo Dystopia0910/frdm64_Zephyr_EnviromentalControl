@@ -1155,13 +1155,13 @@ zephyr_udc0: &usbotg {
             label = "Ventilation Motor Control";
         };
 
+
         irrigation_motor: irrigation_motor {
-            gpios = <&gpioc 13 (0 << 0)>;
+            gpios = <&gpioa 1 (0 << 0)>;
             label = "Irrigation Motor Control";
         };
     };
 };
-
 
 
 &spi0 {
@@ -1177,25 +1177,16 @@ zephyr_udc0: &usbotg {
 };
 
 
-
 &adc0 {
     status = "okay";
 
     lm35_sensor: lm35 {
         compatible = "lm35";
-
-
         io-channels = <&adc0 6>;
-
         status = "okay";
         label = "LM35 Temperature Sensor";
     };
 };
-
-
-
-
-
 
 
 &i2c0 {
@@ -1212,21 +1203,22 @@ zephyr_udc0: &usbotg {
 };
 
 
-
 &gpioc {
     status = "okay";
 
     dht11_sensor: dht11 {
         compatible = "aosong,dht";
-
-
-        dio-gpios = <&gpioc 3 ((1 << 0) | (1 << 4))>;
-
-
+        dio-gpios = <&gpioc 3 ((0 << 0))>;
         status = "okay";
         label = "DHT11 Humidity Sensor";
     };
 };
+
+
+&gpioa {
+    status = "okay";
+};
+
 
 &uart3 {
     status = "okay";
