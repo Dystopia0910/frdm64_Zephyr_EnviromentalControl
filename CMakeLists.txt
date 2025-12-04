@@ -15,6 +15,7 @@ target_sources(app PRIVATE "src/env_controller.c")
 target_sources(app PRIVATE "src/mode_controller.c")
 target_sources(app PRIVATE "src/adjust_manager.c")
 target_sources(app PRIVATE "src/uart_bt.c")
+target_sources(app PRIVATE "src/command_parser.c")
 
 target_include_directories(app PRIVATE src/SPI_LCD)
 

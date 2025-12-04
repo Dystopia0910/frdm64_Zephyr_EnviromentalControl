@@ -1129,6 +1129,10 @@ zephyr_udc0: &usbotg {
         lm35 = &lm35_sensor;
         bh1750 = &bh1750_sensor;
         dht11 = &dht11_sensor;
+
+
+        fan-actuator = &fan_motor;
+        irrigation-actuator = &irrigation_motor;
     };
 
 
@@ -1136,18 +1140,28 @@ zephyr_udc0: &usbotg {
         compatible = "gpio-leds";
 
         cmd_data: cmd_data {
-
             gpios = <&gpioc 5 (0 << 0)>;
             label = "LCD Cmd_Data";
         };
 
         reset_sign: reset_sign {
-
             gpios = <&gpioc 7 (0 << 0)>;
             label = "LCD Reset";
         };
+
+
+        fan_motor: fan_motor {
+            gpios = <&gpioc 12 (0 << 0)>;
+            label = "Ventilation Motor Control";
+        };
+
+        irrigation_motor: irrigation_motor {
+            gpios = <&gpioc 13 (0 << 0)>;
+            label = "Irrigation Motor Control";
+        };
     };
 };
+
 
 
 &spi0 {

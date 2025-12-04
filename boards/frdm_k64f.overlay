@@ -8,25 +8,39 @@
         lm35 = &lm35_sensor;
         bh1750 = &bh1750_sensor;
         dht11 = &dht11_sensor;
+
+        /* Actuator aliases */
+        fan-actuator = &fan_motor;
+        irrigation-actuator = &irrigation_motor;
     };
 
-    /* LCD control GPIO nodes (provided in the original overlay) */
+    /* LCD + actuator GPIO container */
     io_pins {
         compatible = "gpio-leds";
 
         cmd_data: cmd_data {
-            /* LCD D/C pin: PTC5 */
             gpios = <&gpioc 5 GPIO_ACTIVE_HIGH>;
             label = "LCD Cmd_Data";
         };
 
         reset_sign: reset_sign {
-            /* LCD reset pin: PTC7 */
             gpios = <&gpioc 7 GPIO_ACTIVE_HIGH>;
             label = "LCD Reset";
         };
+
+        /* New actuators based on PTC12 and PTC13 */
+        fan_motor: fan_motor {
+            gpios = <&gpioc 12 GPIO_ACTIVE_HIGH>;
+            label = "Ventilation Motor Control";
+        };
+
+        irrigation_motor: irrigation_motor {
+            gpios = <&gpioc 13 GPIO_ACTIVE_HIGH>;
+            label = "Irrigation Motor Control";
+        };
     };
 };
+
 
 /* --- LCD SPI interface (already working) ----------------------------------- */
 &spi0 {

@@ -18,6 +18,8 @@ app/libapp.a(mode_controller.c.obj)
 app/libapp.a(adjust_manager.c.obj)
                               (--whole-archive)
 app/libapp.a(uart_bt.c.obj)   (--whole-archive)
+app/libapp.a(command_parser.c.obj)
+                              (--whole-archive)
 zephyr/libzephyr.a(heap.c.obj)
                               (--whole-archive)
 zephyr/libzephyr.a(cbprintf_packaged.c.obj)
@@ -191,6 +193,8 @@ zephyr/kernel/libkernel.a(init.c.obj)
                               zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(reset.S.obj) (z_early_memset)
 zephyr/kernel/libkernel.a(idle.c.obj)
                               zephyr/kernel/libkernel.a(init.c.obj) (idle)
+zephyr/kernel/libkernel.a(msg_q.c.obj)
+                              app/libapp.a(uart_bt.c.obj) (z_impl_k_msgq_put)
 zephyr/kernel/libkernel.a(mutex.c.obj)
                               app/libapp.a(env_controller.c.obj) (z_impl_k_mutex_init)
 zephyr/kernel/libkernel.a(sem.c.obj)
@@ -208,15 +212,17 @@ zephyr/kernel/libkernel.a(timeout.c.obj)
 zephyr/kernel/libkernel.a(timer.c.obj)
                               zephyr/drivers/adc/libdrivers__adc.a(adc_mcux_adc16.c.obj) (z_timer_expiration_handler)
 zephyr/kernel/libkernel.a(mempool.c.obj)
-                              zephyr/kernel/libkernel.a(thread.c.obj) (k_thread_system_pool_assign)
+                              zephyr/kernel/libkernel.a(msg_q.c.obj) (k_free)
 zephyr/kernel/libkernel.a(banner.c.obj)
                               zephyr/kernel/libkernel.a(init.c.obj) (boot_banner)
 zephyr/kernel/libkernel.a(kheap.c.obj)
                               zephyr/kernel/libkernel.a(mempool.c.obj) (k_heap_free)
 zephyr/arch/common/libisr_tables.a(isr_tables.c.obj)
                               zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(isr_wrapper.c.obj) (_sw_isr_table)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-atof.o)
+                              app/libapp.a(command_parser.c.obj) (atof)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-ctype_.o)
-                              zephyr/libzephyr.a(cbprintf_complete.c.obj) (_ctype_)
+                              app/libapp.a(command_parser.c.obj) (_ctype_)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-malloc.o)
                               zephyr/lib/libc/newlib/liblib__libc__newlib.a(libc-hooks.c.obj) (malloc)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mallocr.o)
@@ -231,54 +237,74 @@ C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mallocr.o) (_sbrk_r)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-snprintf.o)
                               app/libapp.a(display_manager.c.obj) (snprintf)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strchr.o)
+                              app/libapp.a(command_parser.c.obj) (strchr)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strcmp.o)
                               zephyr/libzephyr.a(log_mgmt.c.obj) (strcmp)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strcpy.o)
                               app/libapp.a(sensor_manager.c.obj) (strcpy)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strlen.o)
-                              zephyr/libzephyr.a(cbprintf_packaged.c.obj) (strlen)
+                              app/libapp.a(command_parser.c.obj) (strlen)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
+                              app/libapp.a(command_parser.c.obj) (strncpy)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strnlen.o)
                               zephyr/libzephyr.a(cbprintf_complete.c.obj) (strnlen)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-atof.o) (strtod)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok.o)
+                              app/libapp.a(command_parser.c.obj) (strtok)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok_r.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok.o) (__strtok_r)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-snprintf.o) (_svfprintf_r)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-dtoa.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o) (_dtoa_r)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-freer.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-malloc.o) (_free_r)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-gethex.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o) (__gethex)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-hexnan.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o) (__match)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-impure.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-malloc.o) (_impure_ptr)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-lnumeric.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o) (_C_numeric_locale)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o) (__global_locale)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-localeconv.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o) (_localeconv_r)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o) (__ascii_mbtowc)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memchr.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o) (memchr)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-dtoa.o) (_Balloc)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o) (_Balloc)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-reent.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-sbrkr.o) (errno)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_frexp.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o) (frexp)
-C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
-                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o) (strncpy)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_nan.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o) (nan)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-sf_nan.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o) (nanf)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncmp.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o) (strncmp)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o) (__ssprint_r)
+C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o) (__ascii_wctomb)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-assert.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-dtoa.o) (__assert_func)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-callocr.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o) (_calloc_r)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fiprintf.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-assert.o) (fiprintf)
-C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
-                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-localeconv.o) (__global_locale)
-C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
-                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o) (__ascii_mbtowc)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memmove.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o) (memmove)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-reallocr.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o) (_realloc_r)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fiprintf.o) (_vfiprintf_r)
-C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
-                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o) (__ascii_wctomb)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wsetup.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o) (__swsetup_r)
 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fflush.o)
@@ -312,13 +338,15 @@ c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/
 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldivdf3.o)
                               zephyr/libzephyr.a(timeutil.c.obj) (__aeabi_ddiv)
 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_cmpdf2.o)
-                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o) (__aeabi_dcmpeq)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o) (__aeabi_dcmpeq)
 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_unorddf2.o)
-                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o) (__aeabi_dcmpun)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o) (__aeabi_dcmpun)
 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixdfsi.o)
                               C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o) (__aeabi_d2iz)
+c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
+                              C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o) (__aeabi_d2uiz)
 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
-                              zephyr/libzephyr.a(timeutil.c.obj) (__aeabi_d2f)
+                              app/libapp.a(command_parser.c.obj) (__aeabi_d2f)
 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_ldivmod.o)
                               zephyr/libzephyr.a(timeutil.c.obj) (__aeabi_ldivmod)
 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_uldivmod.o)
@@ -333,8 +361,6 @@ c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/
                               c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_ldivmod.o) (__udivmoddi4)
 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_dvmd_tls.o)
                               c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_ldivmod.o) (__aeabi_ldiv0)
-c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
-                              c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_fixunsdfdi.o) (__aeabi_d2uiz)
 
 Discarded input sections
 
@@ -480,9 +506,56 @@ Discarded input sections
  .text          0x0000000000000000        0x0 app/libapp.a(uart_bt.c.obj)
  .data          0x0000000000000000        0x0 app/libapp.a(uart_bt.c.obj)
  .bss           0x0000000000000000        0x0 app/libapp.a(uart_bt.c.obj)
- .debug_line    0x0000000000000000        0x0 app/libapp.a(uart_bt.c.obj)
- .debug_str     0x0000000000000000      0x1a6 app/libapp.a(uart_bt.c.obj)
+ .rodata.uart_bt_callback.str1.1
+                0x0000000000000000       0x29 app/libapp.a(uart_bt.c.obj)
+ .text.uart_bt_callback
+                0x0000000000000000       0xa0 app/libapp.a(uart_bt.c.obj)
+ .text.uart_bt_send
+                0x0000000000000000       0x28 app/libapp.a(uart_bt.c.obj)
+ .rodata.uart_bt_init.str1.1
+                0x0000000000000000       0x51 app/libapp.a(uart_bt.c.obj)
+ .text.uart_bt_init
+                0x0000000000000000       0x4c app/libapp.a(uart_bt.c.obj)
+ .rodata.uart_bt_thread.str1.1
+                0x0000000000000000       0xb2 app/libapp.a(uart_bt.c.obj)
+ .text.uart_bt_thread
+                0x0000000000000000      0x110 app/libapp.a(uart_bt.c.obj)
+ .bss.rx_pos    0x0000000000000000        0x4 app/libapp.a(uart_bt.c.obj)
+ .bss.rx_buffer
+                0x0000000000000000       0x40 app/libapp.a(uart_bt.c.obj)
+ ._k_msgq.static.bt_rx_msgq_
+                0x0000000000000000       0x28 app/libapp.a(uart_bt.c.obj)
+ .noinit."CMAKE_SOURCE_DIR/src/uart_bt.c".0
+                0x0000000000000000      0x280 app/libapp.a(uart_bt.c.obj)
+ .debug_info    0x0000000000000000     0x17f4 app/libapp.a(uart_bt.c.obj)
+ .debug_abbrev  0x0000000000000000      0x4ad app/libapp.a(uart_bt.c.obj)
+ .debug_loc     0x0000000000000000      0x4aa app/libapp.a(uart_bt.c.obj)
+ .debug_aranges
+                0x0000000000000000       0x38 app/libapp.a(uart_bt.c.obj)
+ .debug_ranges  0x0000000000000000      0x148 app/libapp.a(uart_bt.c.obj)
+ .debug_line    0x0000000000000000      0x85f app/libapp.a(uart_bt.c.obj)
+ .debug_str     0x0000000000000000      0xb91 app/libapp.a(uart_bt.c.obj)
  .comment       0x0000000000000000       0x21 app/libapp.a(uart_bt.c.obj)
+ .debug_frame   0x0000000000000000       0x90 app/libapp.a(uart_bt.c.obj)
+ .text          0x0000000000000000        0x0 app/libapp.a(command_parser.c.obj)
+ .data          0x0000000000000000        0x0 app/libapp.a(command_parser.c.obj)
+ .bss           0x0000000000000000        0x0 app/libapp.a(command_parser.c.obj)
+ .text.str_iequals
+                0x0000000000000000       0x44 app/libapp.a(command_parser.c.obj)
+ .rodata.command_parser_parse.str1.1
+                0x0000000000000000       0x25 app/libapp.a(command_parser.c.obj)
+ .text.command_parser_parse
+                0x0000000000000000      0x120 app/libapp.a(command_parser.c.obj)
+ .debug_info    0x0000000000000000      0x4af app/libapp.a(command_parser.c.obj)
+ .debug_abbrev  0x0000000000000000      0x1bb app/libapp.a(command_parser.c.obj)
+ .debug_loc     0x0000000000000000      0x3cc app/libapp.a(command_parser.c.obj)
+ .debug_aranges
+                0x0000000000000000       0x28 app/libapp.a(command_parser.c.obj)
+ .debug_ranges  0x0000000000000000       0xa8 app/libapp.a(command_parser.c.obj)
+ .debug_line    0x0000000000000000      0x2ef app/libapp.a(command_parser.c.obj)
+ .debug_str     0x0000000000000000      0x3b9 app/libapp.a(command_parser.c.obj)
+ .comment       0x0000000000000000       0x21 app/libapp.a(command_parser.c.obj)
+ .debug_frame   0x0000000000000000       0x74 app/libapp.a(command_parser.c.obj)
  .text          0x0000000000000000        0x0 zephyr/libzephyr.a(heap.c.obj)
  .data          0x0000000000000000        0x0 zephyr/libzephyr.a(heap.c.obj)
  .bss           0x0000000000000000        0x0 zephyr/libzephyr.a(heap.c.obj)
@@ -1605,6 +1678,39 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 zephyr/kernel/libkernel.a(idle.c.obj)
  .text.arch_spin_relax
                 0x0000000000000000        0x4 zephyr/kernel/libkernel.a(idle.c.obj)
+ .text          0x0000000000000000        0x0 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .data          0x0000000000000000        0x0 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .bss           0x0000000000000000        0x0 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .text.unpend_thread_no_timeout
+                0x0000000000000000       0x1a zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .text.k_msgq_init
+                0x0000000000000000       0x1e zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .text.z_impl_k_msgq_alloc_init
+                0x0000000000000000       0x36 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .text.k_msgq_cleanup
+                0x0000000000000000       0x32 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .text.z_impl_k_msgq_put
+                0x0000000000000000       0xb0 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .text.z_impl_k_msgq_get_attrs
+                0x0000000000000000        0xe zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .text.z_impl_k_msgq_get
+                0x0000000000000000       0xc4 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .text.z_impl_k_msgq_peek
+                0x0000000000000000       0x32 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .text.z_impl_k_msgq_peek_at
+                0x0000000000000000       0x46 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .text.z_impl_k_msgq_purge
+                0x0000000000000000       0x84 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .debug_info    0x0000000000000000     0x1ebe zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .debug_abbrev  0x0000000000000000      0x4e3 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .debug_loc     0x0000000000000000     0x1095 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .debug_aranges
+                0x0000000000000000       0x68 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .debug_ranges  0x0000000000000000      0x300 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .debug_line    0x0000000000000000     0x1079 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .debug_str     0x0000000000000000      0x980 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .comment       0x0000000000000000       0x21 zephyr/kernel/libkernel.a(msg_q.c.obj)
+ .debug_frame   0x0000000000000000      0x124 zephyr/kernel/libkernel.a(msg_q.c.obj)
  .text          0x0000000000000000        0x0 zephyr/kernel/libkernel.a(mutex.c.obj)
  .data          0x0000000000000000        0x0 zephyr/kernel/libkernel.a(mutex.c.obj)
  .bss           0x0000000000000000        0x0 zephyr/kernel/libkernel.a(mutex.c.obj)
@@ -1753,6 +1859,10 @@ Discarded input sections
  .text          0x0000000000000000        0x0 zephyr/arch/common/libisr_tables.a(isr_tables.c.obj)
  .data          0x0000000000000000        0x0 zephyr/arch/common/libisr_tables.a(isr_tables.c.obj)
  .bss           0x0000000000000000        0x0 zephyr/arch/common/libisr_tables.a(isr_tables.c.obj)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-atof.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-atof.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-atof.o)
+ .text.atof     0x0000000000000000        0x8 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-atof.o)
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-ctype_.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-ctype_.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-ctype_.o)
@@ -1778,6 +1888,10 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-snprintf.o)
  .text._snprintf_r
                 0x0000000000000000       0x80 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-snprintf.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strchr.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strchr.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strchr.o)
+ .text.strchr   0x0000000000000000       0xd0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strchr.o)
  .text          0x0000000000000000      0x2dc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strcmp.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strcmp.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strcmp.o)
@@ -1787,9 +1901,43 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strcpy.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strlen.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strlen.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strnlen.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strnlen.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strnlen.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .rodata._strtod_l.str1.4
+                0x0000000000000000       0x11 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .text._strtod_l
+                0x0000000000000000     0x1008 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .text._strtod_r
+                0x0000000000000000        0xc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .text.strtod_l
+                0x0000000000000000       0x1c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .text.strtod   0x0000000000000000       0x20 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .text.strtof_l
+                0x0000000000000000       0xb0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .text.strtof   0x0000000000000000       0xb4 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .rodata.fpinan.0
+                0x0000000000000000       0x14 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .rodata.fpi.1  0x0000000000000000       0x14 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .rodata.tinytens
+                0x0000000000000000       0x28 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok.o)
+ .text.strtok   0x0000000000000000       0x10 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok_r.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok_r.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok_r.o)
+ .text.__strtok_r
+                0x0000000000000000       0x68 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok_r.o)
+ .text.strtok_r
+                0x0000000000000000        0x8 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok_r.o)
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o)
@@ -1799,11 +1947,49 @@ Discarded input sections
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-freer.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-freer.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-freer.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .text.rshift   0x0000000000000000       0xa4 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .rodata.__gethex.str1.4
+                0x0000000000000000       0x8b C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .text.__gethex
+                0x0000000000000000      0x5e0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .rodata.__hexdig
+                0x0000000000000000      0x100 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-gethex.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .text.__match  0x0000000000000000       0x38 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-hexnan.o)
+ .text.__hexnan
+                0x0000000000000000      0x1cc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-hexnan.o)
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-impure.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-impure.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-impure.o)
  .rodata._global_impure_ptr
                 0x0000000000000000        0x4 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-impure.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-lnumeric.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-lnumeric.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-lnumeric.o)
+ .text.__numeric_load_locale
+                0x0000000000000000        0x4 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-lnumeric.o)
+ .rodata.str1.4
+                0x0000000000000000        0x5 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-lnumeric.o)
+ .rodata._C_numeric_locale
+                0x0000000000000000        0xc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-lnumeric.o)
+ .data.numempty
+                0x0000000000000000        0x2 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-lnumeric.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
+ .text._setlocale_r
+                0x0000000000000000       0x40 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
+ .text.__locale_mb_cur_max
+                0x0000000000000000        0xc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
+ .text.setlocale
+                0x0000000000000000       0x40 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
+ .bss._PathLocale
+                0x0000000000000000        0x4 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-localeconv.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-localeconv.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-localeconv.o)
@@ -1811,6 +1997,11 @@ Discarded input sections
                 0x0000000000000000        0x4 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-localeconv.o)
  .text.localeconv
                 0x0000000000000000        0x8 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-localeconv.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
+ .text._mbtowc_r
+                0x0000000000000000       0x14 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memchr.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memchr.o)
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
@@ -1838,9 +2029,18 @@ Discarded input sections
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_frexp.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_frexp.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_frexp.o)
- .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
- .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
- .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_nan.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_nan.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_nan.o)
+ .text.nan      0x0000000000000000       0x10 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_nan.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-sf_nan.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-sf_nan.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-sf_nan.o)
+ .text.nanf     0x0000000000000000        0xc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-sf_nan.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncmp.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncmp.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncmp.o)
+ .text.strncmp  0x0000000000000000       0x84 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncmp.o)
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o)
@@ -1852,6 +2052,11 @@ Discarded input sections
                 0x0000000000000000       0x10 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o)
  .rodata.blanks.1
                 0x0000000000000000       0x10 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o)
+ .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
+ .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
+ .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
+ .text._wctomb_r
+                0x0000000000000000       0x14 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-assert.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-assert.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-assert.o)
@@ -1865,22 +2070,6 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fiprintf.o)
  .text._fiprintf_r
                 0x0000000000000000       0x1c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fiprintf.o)
- .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
- .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
- .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
- .text._setlocale_r
-                0x0000000000000000       0x40 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
- .text.__locale_mb_cur_max
-                0x0000000000000000        0xc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
- .text.setlocale
-                0x0000000000000000       0x40 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
- .bss._PathLocale
-                0x0000000000000000        0x4 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
- .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
- .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
- .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
- .text._mbtowc_r
-                0x0000000000000000       0x14 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memmove.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memmove.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memmove.o)
@@ -1894,11 +2083,6 @@ Discarded input sections
                 0x0000000000000000       0x20 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
  .text.vfiprintf
                 0x0000000000000000       0x1c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
- .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
- .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
- .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
- .text._wctomb_r
-                0x0000000000000000       0x14 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
  .text          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wsetup.o)
  .data          0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wsetup.o)
  .bss           0x0000000000000000        0x0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wsetup.o)
@@ -1979,6 +2163,10 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_unorddf2.o)
  .data          0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixdfsi.o)
  .bss           0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixdfsi.o)
+ .text          0x0000000000000000       0x40 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
+ .data          0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
+ .bss           0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
+ .debug_frame   0x0000000000000000       0x24 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
  .text          0x0000000000000000       0xa0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
  .data          0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
  .bss           0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
@@ -2006,10 +2194,6 @@ Discarded input sections
  .ARM.extab     0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_udivmoddi4.o)
  .data          0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_dvmd_tls.o)
  .bss           0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_dvmd_tls.o)
- .text          0x0000000000000000       0x40 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
- .data          0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
- .bss           0x0000000000000000        0x0 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
- .debug_frame   0x0000000000000000       0x24 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
 
 Memory Configuration
 
@@ -2782,79 +2966,79 @@ text            0x0000000000000440     0xf7fc
                 0x000000000000ad34                snprintf
  .text.strcpy   0x000000000000adbc       0xbc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strcpy.o)
                 0x000000000000adbc                strcpy
- .text.strnlen  0x000000000000ae78       0x24 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strnlen.o)
-                0x000000000000ae78                strnlen
- .text.quorem   0x000000000000ae9c      0x12c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-dtoa.o)
+ .text.strncpy  0x000000000000ae78       0x68 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
+                0x000000000000ae78                strncpy
+ .text.strnlen  0x000000000000aee0       0x24 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strnlen.o)
+                0x000000000000aee0                strnlen
+ .text.quorem   0x000000000000af04      0x12c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-dtoa.o)
  .text._malloc_trim_r
-                0x000000000000afc8       0x9c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-freer.o)
-                0x000000000000afc8                _malloc_trim_r
- .text._free_r  0x000000000000b064      0x1fc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-freer.o)
-                0x000000000000b064                _free_r
+                0x000000000000b030       0x9c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-freer.o)
+                0x000000000000b030                _malloc_trim_r
+ .text._free_r  0x000000000000b0cc      0x1fc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-freer.o)
+                0x000000000000b0cc                _free_r
  .text._localeconv_r
-                0x000000000000b260        0x8 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-localeconv.o)
-                0x000000000000b260                _localeconv_r
- .text._Balloc  0x000000000000b268       0x4c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b268                _Balloc
- .text._Bfree   0x000000000000b2b4       0x14 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b2b4                _Bfree
- .text.__multadd
-                0x000000000000b2c8       0xa0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b2c8                __multadd
- .text.__hi0bits
-                0x000000000000b368       0x44 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b368                __hi0bits
- .text.__lo0bits
-                0x000000000000b3ac       0x60 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b3ac                __lo0bits
- .text.__i2b    0x000000000000b40c       0x5c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b40c                __i2b
- .text.__multiply
-                0x000000000000b468      0x16c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b468                __multiply
- .text.__pow5mult
-                0x000000000000b5d4       0xb4 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b5d4                __pow5mult
- .text.__lshift
-                0x000000000000b688       0xf0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b688                __lshift
- .text.__mcmp   0x000000000000b778       0x44 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b778                __mcmp
- .text.__mdiff  0x000000000000b7bc      0x164 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b7bc                __mdiff
- .text.__d2b    0x000000000000b920       0xc0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                0x000000000000b920                __d2b
- .text.frexp    0x000000000000b9e0       0x68 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_frexp.o)
-                0x000000000000b9e0                frexp
- .text.strncpy  0x000000000000ba48       0x68 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
-                0x000000000000ba48                strncpy
- .text.__ssprint_r
-                0x000000000000bab0      0x108 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o)
-                0x000000000000bab0                __ssprint_r
- .text.__assert_func
-                0x000000000000bbb8       0x40 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-assert.o)
-                0x000000000000bbb8                __assert_func
- .text._calloc_r
-                0x000000000000bbf8       0x60 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-callocr.o)
-                0x000000000000bbf8                _calloc_r
- .text.fiprintf
-                0x000000000000bc58       0x28 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fiprintf.o)
-                0x000000000000bc58                fiprintf
+                0x000000000000b2c8        0x8 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-localeconv.o)
+                0x000000000000b2c8                _localeconv_r
  .text.__ascii_mbtowc
-                0x000000000000bc80       0x2c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
-                0x000000000000bc80                __ascii_mbtowc
- .text.memmove  0x000000000000bcac      0x100 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memmove.o)
-                0x000000000000bcac                memmove
- .text._realloc_r
-                0x000000000000bdac      0x344 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-reallocr.o)
-                0x000000000000bdac                _realloc_r
- .text._vfiprintf_r
-                0x000000000000c0f0      0xd94 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
-                0x000000000000c0f0                _vfiprintf_r
- .text.__sbprintf
-                0x000000000000ce84       0x80 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
+                0x000000000000b2d0       0x2c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
+                0x000000000000b2d0                __ascii_mbtowc
+ .text._Balloc  0x000000000000b2fc       0x4c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b2fc                _Balloc
+ .text._Bfree   0x000000000000b348       0x14 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b348                _Bfree
+ .text.__multadd
+                0x000000000000b35c       0xa0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b35c                __multadd
+ .text.__hi0bits
+                0x000000000000b3fc       0x44 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b3fc                __hi0bits
+ .text.__lo0bits
+                0x000000000000b440       0x60 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b440                __lo0bits
+ .text.__i2b    0x000000000000b4a0       0x5c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b4a0                __i2b
+ .text.__multiply
+                0x000000000000b4fc      0x16c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b4fc                __multiply
+ .text.__pow5mult
+                0x000000000000b668       0xb4 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b668                __pow5mult
+ .text.__lshift
+                0x000000000000b71c       0xf0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b71c                __lshift
+ .text.__mcmp   0x000000000000b80c       0x44 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b80c                __mcmp
+ .text.__mdiff  0x000000000000b850      0x164 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b850                __mdiff
+ .text.__d2b    0x000000000000b9b4       0xc0 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x000000000000b9b4                __d2b
+ .text.frexp    0x000000000000ba74       0x68 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_frexp.o)
+                0x000000000000ba74                frexp
+ .text.__ssprint_r
+                0x000000000000badc      0x108 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o)
+                0x000000000000badc                __ssprint_r
  .text.__ascii_wctomb
-                0x000000000000cf04       0x1c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
-                0x000000000000cf04                __ascii_wctomb
+                0x000000000000bbe4       0x1c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
+                0x000000000000bbe4                __ascii_wctomb
+ .text.__assert_func
+                0x000000000000bc00       0x40 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-assert.o)
+                0x000000000000bc00                __assert_func
+ .text._calloc_r
+                0x000000000000bc40       0x60 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-callocr.o)
+                0x000000000000bc40                _calloc_r
+ .text.fiprintf
+                0x000000000000bca0       0x28 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fiprintf.o)
+                0x000000000000bca0                fiprintf
+ .text.memmove  0x000000000000bcc8      0x100 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memmove.o)
+                0x000000000000bcc8                memmove
+ .text._realloc_r
+                0x000000000000bdc8      0x344 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-reallocr.o)
+                0x000000000000bdc8                _realloc_r
+ .text._vfiprintf_r
+                0x000000000000c10c      0xd94 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
+                0x000000000000c10c                _vfiprintf_r
+ .text.__sbprintf
+                0x000000000000cea0       0x80 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
  .text.__swsetup_r
                 0x000000000000cf20       0xc4 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wsetup.o)
                 0x000000000000cf20                __swsetup_r
@@ -3465,7 +3649,7 @@ initlevel       0x000000000000fc44       0xe8
  *(SORT_BY_NAME(SORT_BY_ALIGNMENT(.z_init_PRE_KERNEL_1_P_??_*)))
  .z_init_PRE_KERNEL_1_P_30_SUB_00010_
                 0x000000000000fc44        0x8 zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_sim.c.obj)
- .z_init_PRE_KERNEL_1_P_30_SUB_00071_
+ .z_init_PRE_KERNEL_1_P_30_SUB_00073_
                 0x000000000000fc4c        0x8 zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_mcg.c.obj)
  .z_init_PRE_KERNEL_1_P_30_SUB_0_
                 0x000000000000fc54        0x8 zephyr/kernel/libkernel.a(kheap.c.obj)
@@ -3473,15 +3657,15 @@ initlevel       0x000000000000fc44       0xe8
                 0x000000000000fc5c        0x8 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
  .z_init_PRE_KERNEL_1_P_40_SUB_00021_
                 0x000000000000fc64        0x8 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
- .z_init_PRE_KERNEL_1_P_40_SUB_00029_
-                0x000000000000fc6c        0x8 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
  .z_init_PRE_KERNEL_1_P_40_SUB_00031_
+                0x000000000000fc6c        0x8 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
+ .z_init_PRE_KERNEL_1_P_40_SUB_00033_
                 0x000000000000fc74        0x8 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
- .z_init_PRE_KERNEL_1_P_40_SUB_00076_
+ .z_init_PRE_KERNEL_1_P_40_SUB_00078_
                 0x000000000000fc7c        0x8 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
- .z_init_PRE_KERNEL_1_P_50_SUB_00085_
+ .z_init_PRE_KERNEL_1_P_50_SUB_00087_
                 0x000000000000fc84        0x8 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
- .z_init_PRE_KERNEL_1_P_50_SUB_00088_
+ .z_init_PRE_KERNEL_1_P_50_SUB_00090_
                 0x000000000000fc8c        0x8 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
  .z_init_PRE_KERNEL_1_P_60_SUB_0_
                 0x000000000000fc94        0x8 zephyr/drivers/console/libdrivers__console.a(uart_console.c.obj)
@@ -3503,31 +3687,31 @@ initlevel       0x000000000000fc44       0xe8
                 0x000000000000fcb4        0x8 zephyr/drivers/gpio/libdrivers__gpio.a(gpio_mcux.c.obj)
  .z_init_POST_KERNEL_P_40_SUB_00022_
                 0x000000000000fcbc        0x8 zephyr/drivers/gpio/libdrivers__gpio.a(gpio_mcux.c.obj)
- .z_init_POST_KERNEL_P_40_SUB_00030_
-                0x000000000000fcc4        0x8 zephyr/drivers/gpio/libdrivers__gpio.a(gpio_mcux.c.obj)
  .z_init_POST_KERNEL_P_40_SUB_00032_
+                0x000000000000fcc4        0x8 zephyr/drivers/gpio/libdrivers__gpio.a(gpio_mcux.c.obj)
+ .z_init_POST_KERNEL_P_40_SUB_00034_
                 0x000000000000fccc        0x8 zephyr/drivers/gpio/libdrivers__gpio.a(gpio_mcux.c.obj)
- .z_init_POST_KERNEL_P_40_SUB_00077_
+ .z_init_POST_KERNEL_P_40_SUB_00079_
                 0x000000000000fcd4        0x8 zephyr/drivers/gpio/libdrivers__gpio.a(gpio_mcux.c.obj)
  .z_init_POST_KERNEL_P_50_SUB_00012_
                 0x000000000000fcdc        0x8 zephyr/drivers/adc/libdrivers__adc.a(adc_mcux_adc16.c.obj)
  .z_init_POST_KERNEL_P_50_SUB_00015_
                 0x000000000000fce4        0x8 zephyr/drivers/adc/libdrivers__adc.a(adc_mcux_adc16.c.obj)
- .z_init_POST_KERNEL_P_50_SUB_00107_
+ .z_init_POST_KERNEL_P_50_SUB_00109_
                 0x000000000000fcec        0x8 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_mcux.c.obj)
- .z_init_POST_KERNEL_P_50_SUB_00119_
-                0x000000000000fcf4        0x8 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
  .z_init_POST_KERNEL_P_50_SUB_00121_
+                0x000000000000fcf4        0x8 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
+ .z_init_POST_KERNEL_P_50_SUB_00123_
                 0x000000000000fcfc        0x8 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
  .z_init_POST_KERNEL_P_90_SUB_00016_
                 0x000000000000fd04        0x8 zephyr/drivers/sensor/nxp/nxp_kinetis_temp/libdrivers__sensor__nxp__nxp_kinetis_temp.a(temp_kinetis.c.obj)
- .z_init_POST_KERNEL_P_90_SUB_00093_
+ .z_init_POST_KERNEL_P_90_SUB_00095_
                 0x000000000000fd0c        0x8 zephyr/drivers/sensor/lm35/libdrivers__sensor__lm35.a(lm35.c.obj)
- .z_init_POST_KERNEL_P_90_SUB_00106_
-                0x000000000000fd14        0x8 zephyr/drivers/sensor/aosong/dht/libdrivers__sensor__aosong__dht.a(dht.c.obj)
  .z_init_POST_KERNEL_P_90_SUB_00108_
+                0x000000000000fd14        0x8 zephyr/drivers/sensor/aosong/dht/libdrivers__sensor__aosong__dht.a(dht.c.obj)
+ .z_init_POST_KERNEL_P_90_SUB_00110_
                 0x000000000000fd1c        0x8 zephyr/drivers/sensor/rohm/bh1750/libdrivers__sensor__rohm__bh1750.a(bh1750.c.obj)
- .z_init_POST_KERNEL_P_90_SUB_00109_
+ .z_init_POST_KERNEL_P_90_SUB_00111_
                 0x000000000000fd24        0x8 zephyr/drivers/sensor/nxp/fxos8700/libdrivers__sensor__nxp__fxos8700.a(fxos8700.c.obj)
  *(SORT_BY_NAME(SORT_BY_ALIGNMENT(.z_init_POST_KERNEL_P_???_*)))
                 0x000000000000fd2c                __init_APPLICATION_start = .
@@ -3546,27 +3730,27 @@ device_area     0x000000000000fd2c      0x300
  *(SORT_BY_NAME(SORT_BY_ALIGNMENT(._device.static.*_??_*)))
  ._device.static.1_30_
                 0x000000000000fd2c       0x20 zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_mcg.c.obj)
-                0x000000000000fd2c                __device_dts_ord_71
+                0x000000000000fd2c                __device_dts_ord_73
  ._device.static.1_30_
                 0x000000000000fd4c       0x20 zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_sim.c.obj)
                 0x000000000000fd4c                __device_dts_ord_10
  ._device.static.1_40_
                 0x000000000000fd6c       0xa0 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
-                0x000000000000fd6c                __device_dts_ord_31
-                0x000000000000fd8c                __device_dts_ord_76
+                0x000000000000fd6c                __device_dts_ord_33
+                0x000000000000fd8c                __device_dts_ord_78
                 0x000000000000fdac                __device_dts_ord_21
-                0x000000000000fdcc                __device_dts_ord_29
+                0x000000000000fdcc                __device_dts_ord_31
                 0x000000000000fdec                __device_dts_ord_19
  ._device.static.1_50_
                 0x000000000000fe0c       0x40 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
-                0x000000000000fe0c                __device_dts_ord_88
-                0x000000000000fe2c                __device_dts_ord_85
+                0x000000000000fe0c                __device_dts_ord_90
+                0x000000000000fe2c                __device_dts_ord_87
  ._device.static.3_40_
                 0x000000000000fe4c       0xa0 zephyr/drivers/gpio/libdrivers__gpio.a(gpio_mcux.c.obj)
-                0x000000000000fe4c                __device_dts_ord_32
-                0x000000000000fe6c                __device_dts_ord_77
+                0x000000000000fe4c                __device_dts_ord_34
+                0x000000000000fe6c                __device_dts_ord_79
                 0x000000000000fe8c                __device_dts_ord_22
-                0x000000000000feac                __device_dts_ord_30
+                0x000000000000feac                __device_dts_ord_32
                 0x000000000000fecc                __device_dts_ord_20
  ._device.static.3_50_
                 0x000000000000feec       0x40 zephyr/drivers/adc/libdrivers__adc.a(adc_mcux_adc16.c.obj)
@@ -3574,26 +3758,26 @@ device_area     0x000000000000fd2c      0x300
                 0x000000000000ff0c                __device_dts_ord_12
  ._device.static.3_50_
                 0x000000000000ff2c       0x20 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_mcux.c.obj)
-                0x000000000000ff2c                __device_dts_ord_107
+                0x000000000000ff2c                __device_dts_ord_109
  ._device.static.3_50_
                 0x000000000000ff4c       0x40 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
-                0x000000000000ff4c                __device_dts_ord_121
-                0x000000000000ff6c                __device_dts_ord_119
+                0x000000000000ff4c                __device_dts_ord_123
+                0x000000000000ff6c                __device_dts_ord_121
  ._device.static.3_90_
                 0x000000000000ff8c       0x20 zephyr/drivers/sensor/aosong/dht/libdrivers__sensor__aosong__dht.a(dht.c.obj)
-                0x000000000000ff8c                __device_dts_ord_106
+                0x000000000000ff8c                __device_dts_ord_108
  ._device.static.3_90_
                 0x000000000000ffac       0x20 zephyr/drivers/sensor/nxp/fxos8700/libdrivers__sensor__nxp__fxos8700.a(fxos8700.c.obj)
-                0x000000000000ffac                __device_dts_ord_109
+                0x000000000000ffac                __device_dts_ord_111
  ._device.static.3_90_
                 0x000000000000ffcc       0x20 zephyr/drivers/sensor/nxp/nxp_kinetis_temp/libdrivers__sensor__nxp__nxp_kinetis_temp.a(temp_kinetis.c.obj)
                 0x000000000000ffcc                __device_dts_ord_16
  ._device.static.3_90_
                 0x000000000000ffec       0x20 zephyr/drivers/sensor/rohm/bh1750/libdrivers__sensor__rohm__bh1750.a(bh1750.c.obj)
-                0x000000000000ffec                __device_dts_ord_108
+                0x000000000000ffec                __device_dts_ord_110
  ._device.static.3_90_
                 0x000000000001000c       0x20 zephyr/drivers/sensor/lm35/libdrivers__sensor__lm35.a(lm35.c.obj)
-                0x000000000001000c                __device_dts_ord_93
+                0x000000000001000c                __device_dts_ord_95
  *(SORT_BY_NAME(SORT_BY_ALIGNMENT(._device.static.*_???_*)))
  *(SORT_BY_NAME(SORT_BY_ALIGNMENT(._device.static.*_????_*)))
  *(SORT_BY_NAME(SORT_BY_ALIGNMENT(._device.static.*_?????_*)))
@@ -4409,11 +4593,11 @@ rodata          0x00000000000104e8     0x21b8
                 0x00000000000107b4        0xc zephyr/drivers/i2c/libdrivers__i2c.a(i2c_mcux.c.obj)
  .rodata.i2c_mcux_config_0
                 0x00000000000107c0       0x14 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_mcux.c.obj)
- .rodata.__pinctrl_dev_config__device_dts_ord_107
+ .rodata.__pinctrl_dev_config__device_dts_ord_109
                 0x00000000000107d4        0x8 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_mcux.c.obj)
- .rodata.__pinctrl_states__device_dts_ord_107
+ .rodata.__pinctrl_states__device_dts_ord_109
                 0x00000000000107dc        0x8 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_mcux.c.obj)
- .rodata.__pinctrl_state_pins_0__device_dts_ord_107
+ .rodata.__pinctrl_state_pins_0__device_dts_ord_109
                 0x00000000000107e4        0x8 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_mcux.c.obj)
  .rodata.pinctrl_mcux_4_config
                 0x00000000000107ec        0x8 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
@@ -4440,39 +4624,39 @@ rodata          0x00000000000104e8     0x21b8
                 0x0000000000010898       0x24 zephyr/drivers/sensor/lm35/libdrivers__sensor__lm35.a(lm35.c.obj)
  .rodata.uart_mcux_1_config
                 0x00000000000108bc       0x14 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
- .rodata.__pinctrl_dev_config__device_dts_ord_88
+ .rodata.__pinctrl_dev_config__device_dts_ord_90
                 0x00000000000108d0        0x8 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
- .rodata.__pinctrl_states__device_dts_ord_88
+ .rodata.__pinctrl_states__device_dts_ord_90
                 0x00000000000108d8        0x8 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
- .rodata.__pinctrl_state_pins_0__device_dts_ord_88
+ .rodata.__pinctrl_state_pins_0__device_dts_ord_90
                 0x00000000000108e0        0x8 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
  .rodata.uart_mcux_0_config
                 0x00000000000108e8       0x14 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
- .rodata.__pinctrl_dev_config__device_dts_ord_85
+ .rodata.__pinctrl_dev_config__device_dts_ord_87
                 0x00000000000108fc        0x8 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
- .rodata.__pinctrl_states__device_dts_ord_85
+ .rodata.__pinctrl_states__device_dts_ord_87
                 0x0000000000010904        0x8 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
- .rodata.__pinctrl_state_pins_0__device_dts_ord_85
+ .rodata.__pinctrl_state_pins_0__device_dts_ord_87
                 0x000000000001090c        0x8 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
  .rodata.spi_mcux_config_1
                 0x0000000000010914       0x2c zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
  .rodata.__compound_literal.1
                 0x0000000000010940        0x8 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
- .rodata.__pinctrl_dev_config__device_dts_ord_121
+ .rodata.__pinctrl_dev_config__device_dts_ord_123
                 0x0000000000010948        0x8 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
- .rodata.__pinctrl_states__device_dts_ord_121
+ .rodata.__pinctrl_states__device_dts_ord_123
                 0x0000000000010950        0x8 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
- .rodata.__pinctrl_state_pins_0__device_dts_ord_121
+ .rodata.__pinctrl_state_pins_0__device_dts_ord_123
                 0x0000000000010958       0x10 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
  .rodata.spi_mcux_config_0
                 0x0000000000010968       0x2c zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
  .rodata.__compound_literal.0
                 0x0000000000010994        0x8 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
- .rodata.__pinctrl_dev_config__device_dts_ord_119
+ .rodata.__pinctrl_dev_config__device_dts_ord_121
                 0x000000000001099c        0x8 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
- .rodata.__pinctrl_states__device_dts_ord_119
+ .rodata.__pinctrl_states__device_dts_ord_121
                 0x00000000000109a4        0x8 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
- .rodata.__pinctrl_state_pins_0__device_dts_ord_119
+ .rodata.__pinctrl_state_pins_0__device_dts_ord_121
                 0x00000000000109ac       0x10 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
  .rodata.s_adc16Clocks
                 0x00000000000109bc        0x8 modules/hal_nxp/libmodules__hal_nxp.a(fsl_adc16.c.obj)
@@ -4509,23 +4693,23 @@ rodata          0x00000000000104e8     0x21b8
                 0x0000000000010c28       0x93 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-dtoa.o)
                                          0x97 (size before relaxing)
  *fill*         0x0000000000010cbb        0x1 
- .rodata.__multadd.str1.4
-                0x0000000000010cbc       0x70 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
-                                         0x84 (size before relaxing)
- .rodata.p05.0  0x0000000000010d2c        0xc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
- .rodata.__assert_func.str1.4
-                0x0000000000010d38       0x3f C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-assert.o)
-                                         0x43 (size before relaxing)
- *fill*         0x0000000000010d77        0x1 
  .rodata._setlocale_r.str1.4
-                0x0000000000010d78        0xa C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
+                0x0000000000010cbc        0xa C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
                                           0xd (size before relaxing)
- *fill*         0x0000000000010d82        0x2 
+ *fill*         0x0000000000010cc6        0x2 
  .rodata.str1.4
-                0x0000000000010d84        0x2 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
+                0x0000000000010cc8        0x2 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
+ *fill*         0x0000000000010cca        0x2 
+ .rodata.__multadd.str1.4
+                0x0000000000010ccc       0x70 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                                         0x84 (size before relaxing)
+ .rodata.p05.0  0x0000000000010d3c        0xc C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+ .rodata.__assert_func.str1.4
+                0x0000000000010d48       0x3f C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-assert.o)
+                                         0x43 (size before relaxing)
  .rodata._vfiprintf_r.str1.4
-                0x0000000000010d86       0x2f C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
- *fill*         0x0000000000010d86        0x2 
+                0x0000000000010d87       0x2f C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
+ *fill*         0x0000000000010d87        0x1 
  .rodata.zeroes.0
                 0x0000000000010d88       0x10 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
  .rodata.blanks.1
@@ -5775,7 +5959,7 @@ net_buf_pool_area
  .debug_str     0x0000000000011708       0x68 zephyr/arch/common/libisr_tables.a(isr_tables.c.obj)
                                         0xd9c (size before relaxing)
 
-.debug_loc      0x0000000000000000    0x34116
+.debug_loc      0x0000000000000000    0x340f2
  *(SORT_BY_ALIGNMENT(.debug_loc))
  .debug_loc     0x0000000000000000       0xa6 app/libapp.a(main.c.obj)
  .debug_loc     0x00000000000000a6      0x9ca app/libapp.a(spi_lcd_nokia.c.obj)
@@ -5791,59 +5975,59 @@ net_buf_pool_area
  .debug_loc     0x000000000000affc     0x1261 zephyr/libzephyr.a(log_core.c.obj)
  .debug_loc     0x000000000000c25d      0xc2b zephyr/libzephyr.a(log_mgmt.c.obj)
  .debug_loc     0x000000000000ce88     0x1280 zephyr/libzephyr.a(log_msg.c.obj)
- .debug_loc     0x000000000000e108     0x1778 zephyr/libzephyr.a(log_output.c.obj)
- .debug_loc     0x000000000000f880      0x473 zephyr/libzephyr.a(log_backend_uart.c.obj)
- .debug_loc     0x000000000000fcf3       0x6f zephyr/libzephyr.a(mem_attr.c.obj)
- .debug_loc     0x000000000000fd62     0x1074 zephyr/arch/arch/arm/core/libarch__arm__core.a(fatal.c.obj)
- .debug_loc     0x0000000000010dd6     0x24ef zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(fault.c.obj)
- .debug_loc     0x00000000000132c5       0x3a zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(thread_abort.c.obj)
- .debug_loc     0x00000000000132ff      0x1a1 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(irq_manage.c.obj)
- .debug_loc     0x00000000000134a0       0x16 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(prep_c.c.obj)
- .debug_loc     0x00000000000134b6      0x3e6 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(thread.c.obj)
- .debug_loc     0x000000000001389c       0x56 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(cpu_idle.c.obj)
- .debug_loc     0x00000000000138f2       0x6a zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(irq_init.c.obj)
- .debug_loc     0x000000000001395c       0x3f zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(isr_wrapper.c.obj)
- .debug_loc     0x000000000001399b       0xd1 zephyr/arch/arch/arm/core/mpu/libarch__arm__core__mpu.a(arm_core_mpu.c.obj)
- .debug_loc     0x0000000000013a6c      0x97a zephyr/arch/arch/arm/core/mpu/libarch__arm__core__mpu.a(nxp_mpu.c.obj)
- .debug_loc     0x00000000000143e6      0x7a9 zephyr/lib/libc/newlib/liblib__libc__newlib.a(libc-hooks.c.obj)
- .debug_loc     0x0000000000014b8f       0x2c zephyr/lib/libc/common/liblib__libc__common.a(abort.c.obj)
- .debug_loc     0x0000000000014bbb      0x1aa zephyr/drivers/adc/libdrivers__adc.a(adc_common.c.obj)
- .debug_loc     0x0000000000014d65      0xf2c zephyr/drivers/adc/libdrivers__adc.a(adc_mcux_adc16.c.obj)
- .debug_loc     0x0000000000015c91      0x1ea zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_mcg.c.obj)
- .debug_loc     0x0000000000015e7b      0x2ad zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_sim.c.obj)
- .debug_loc     0x0000000000016128       0x85 zephyr/drivers/console/libdrivers__console.a(uart_console.c.obj)
- .debug_loc     0x00000000000161ad      0xe69 zephyr/drivers/gpio/libdrivers__gpio.a(gpio_mcux.c.obj)
- .debug_loc     0x0000000000017016      0x7e1 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_mcux.c.obj)
- .debug_loc     0x00000000000177f7       0x42 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(common.c.obj)
- .debug_loc     0x0000000000017839      0x381 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
- .debug_loc     0x0000000000017bba      0xe27 zephyr/drivers/sensor/aosong/dht/libdrivers__sensor__aosong__dht.a(dht.c.obj)
- .debug_loc     0x00000000000189e1     0x2940 zephyr/drivers/sensor/nxp/fxos8700/libdrivers__sensor__nxp__fxos8700.a(fxos8700.c.obj)
- .debug_loc     0x000000000001b321      0xd7d zephyr/drivers/sensor/nxp/nxp_kinetis_temp/libdrivers__sensor__nxp__nxp_kinetis_temp.a(temp_kinetis.c.obj)
- .debug_loc     0x000000000001c09e     0x16ee zephyr/drivers/sensor/rohm/bh1750/libdrivers__sensor__rohm__bh1750.a(bh1750.c.obj)
- .debug_loc     0x000000000001d78c      0x421 zephyr/drivers/sensor/lm35/libdrivers__sensor__lm35.a(lm35.c.obj)
- .debug_loc     0x000000000001dbad      0xa35 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
- .debug_loc     0x000000000001e5e2     0x237d zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
- .debug_loc     0x000000000002095f      0x6e8 zephyr/drivers/timer/libdrivers__timer.a(cortex_m_systick.c.obj)
- .debug_loc     0x0000000000021047     0x1698 modules/hal_nxp/libmodules__hal_nxp.a(fsl_clock.c.obj)
- .debug_loc     0x00000000000226df       0xf3 modules/hal_nxp/libmodules__hal_nxp.a(system_MK64F12.c.obj)
- .debug_loc     0x00000000000227d2      0x578 modules/hal_nxp/libmodules__hal_nxp.a(fsl_adc16.c.obj)
- .debug_loc     0x0000000000022d4a     0x2e42 modules/hal_nxp/libmodules__hal_nxp.a(fsl_dspi.c.obj)
- .debug_loc     0x0000000000025b8c     0x25e9 modules/hal_nxp/libmodules__hal_nxp.a(fsl_i2c.c.obj)
- .debug_loc     0x0000000000028175     0x1c2c modules/hal_nxp/libmodules__hal_nxp.a(fsl_uart.c.obj)
- .debug_loc     0x0000000000029da1       0x7e zephyr/kernel/libkernel.a(busy_wait.c.obj)
- .debug_loc     0x0000000000029e1f      0x155 zephyr/kernel/libkernel.a(device.c.obj)
- .debug_loc     0x0000000000029f74      0x8d5 zephyr/kernel/libkernel.a(fatal.c.obj)
- .debug_loc     0x000000000002a849      0x7f6 zephyr/kernel/libkernel.a(init.c.obj)
- .debug_loc     0x000000000002b03f       0x85 zephyr/kernel/libkernel.a(idle.c.obj)
- .debug_loc     0x000000000002b0c4      0x881 zephyr/kernel/libkernel.a(mutex.c.obj)
- .debug_loc     0x000000000002b945      0x7db zephyr/kernel/libkernel.a(sem.c.obj)
- .debug_loc     0x000000000002c120      0xa4d zephyr/kernel/libkernel.a(thread.c.obj)
- .debug_loc     0x000000000002cb6d     0x461a zephyr/kernel/libkernel.a(sched.c.obj)
- .debug_loc     0x0000000000031187      0x3e2 zephyr/kernel/libkernel.a(timeslicing.c.obj)
- .debug_loc     0x0000000000031569     0x1019 zephyr/kernel/libkernel.a(timeout.c.obj)
- .debug_loc     0x0000000000032582      0xa32 zephyr/kernel/libkernel.a(timer.c.obj)
- .debug_loc     0x0000000000032fb4      0x830 zephyr/kernel/libkernel.a(mempool.c.obj)
- .debug_loc     0x00000000000337e4      0x932 zephyr/kernel/libkernel.a(kheap.c.obj)
+ .debug_loc     0x000000000000e108     0x1769 zephyr/libzephyr.a(log_output.c.obj)
+ .debug_loc     0x000000000000f871      0x473 zephyr/libzephyr.a(log_backend_uart.c.obj)
+ .debug_loc     0x000000000000fce4       0x6f zephyr/libzephyr.a(mem_attr.c.obj)
+ .debug_loc     0x000000000000fd53     0x1074 zephyr/arch/arch/arm/core/libarch__arm__core.a(fatal.c.obj)
+ .debug_loc     0x0000000000010dc7     0x24ef zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(fault.c.obj)
+ .debug_loc     0x00000000000132b6       0x3a zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(thread_abort.c.obj)
+ .debug_loc     0x00000000000132f0      0x1a1 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(irq_manage.c.obj)
+ .debug_loc     0x0000000000013491       0x16 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(prep_c.c.obj)
+ .debug_loc     0x00000000000134a7      0x3e6 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(thread.c.obj)
+ .debug_loc     0x000000000001388d       0x56 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(cpu_idle.c.obj)
+ .debug_loc     0x00000000000138e3       0x6a zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(irq_init.c.obj)
+ .debug_loc     0x000000000001394d       0x3f zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(isr_wrapper.c.obj)
+ .debug_loc     0x000000000001398c       0xd1 zephyr/arch/arch/arm/core/mpu/libarch__arm__core__mpu.a(arm_core_mpu.c.obj)
+ .debug_loc     0x0000000000013a5d      0x97a zephyr/arch/arch/arm/core/mpu/libarch__arm__core__mpu.a(nxp_mpu.c.obj)
+ .debug_loc     0x00000000000143d7      0x7a9 zephyr/lib/libc/newlib/liblib__libc__newlib.a(libc-hooks.c.obj)
+ .debug_loc     0x0000000000014b80       0x2c zephyr/lib/libc/common/liblib__libc__common.a(abort.c.obj)
+ .debug_loc     0x0000000000014bac      0x1aa zephyr/drivers/adc/libdrivers__adc.a(adc_common.c.obj)
+ .debug_loc     0x0000000000014d56      0xf2c zephyr/drivers/adc/libdrivers__adc.a(adc_mcux_adc16.c.obj)
+ .debug_loc     0x0000000000015c82      0x1ea zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_mcg.c.obj)
+ .debug_loc     0x0000000000015e6c      0x2ad zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_sim.c.obj)
+ .debug_loc     0x0000000000016119       0x85 zephyr/drivers/console/libdrivers__console.a(uart_console.c.obj)
+ .debug_loc     0x000000000001619e      0xe69 zephyr/drivers/gpio/libdrivers__gpio.a(gpio_mcux.c.obj)
+ .debug_loc     0x0000000000017007      0x7e1 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_mcux.c.obj)
+ .debug_loc     0x00000000000177e8       0x42 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(common.c.obj)
+ .debug_loc     0x000000000001782a      0x381 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
+ .debug_loc     0x0000000000017bab      0xe27 zephyr/drivers/sensor/aosong/dht/libdrivers__sensor__aosong__dht.a(dht.c.obj)
+ .debug_loc     0x00000000000189d2     0x2940 zephyr/drivers/sensor/nxp/fxos8700/libdrivers__sensor__nxp__fxos8700.a(fxos8700.c.obj)
+ .debug_loc     0x000000000001b312      0xd7d zephyr/drivers/sensor/nxp/nxp_kinetis_temp/libdrivers__sensor__nxp__nxp_kinetis_temp.a(temp_kinetis.c.obj)
+ .debug_loc     0x000000000001c08f     0x16ee zephyr/drivers/sensor/rohm/bh1750/libdrivers__sensor__rohm__bh1750.a(bh1750.c.obj)
+ .debug_loc     0x000000000001d77d      0x421 zephyr/drivers/sensor/lm35/libdrivers__sensor__lm35.a(lm35.c.obj)
+ .debug_loc     0x000000000001db9e      0xa35 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
+ .debug_loc     0x000000000001e5d3     0x237d zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
+ .debug_loc     0x0000000000020950      0x6e8 zephyr/drivers/timer/libdrivers__timer.a(cortex_m_systick.c.obj)
+ .debug_loc     0x0000000000021038     0x1698 modules/hal_nxp/libmodules__hal_nxp.a(fsl_clock.c.obj)
+ .debug_loc     0x00000000000226d0       0xf3 modules/hal_nxp/libmodules__hal_nxp.a(system_MK64F12.c.obj)
+ .debug_loc     0x00000000000227c3      0x578 modules/hal_nxp/libmodules__hal_nxp.a(fsl_adc16.c.obj)
+ .debug_loc     0x0000000000022d3b     0x2e42 modules/hal_nxp/libmodules__hal_nxp.a(fsl_dspi.c.obj)
+ .debug_loc     0x0000000000025b7d     0x25e9 modules/hal_nxp/libmodules__hal_nxp.a(fsl_i2c.c.obj)
+ .debug_loc     0x0000000000028166     0x1c2c modules/hal_nxp/libmodules__hal_nxp.a(fsl_uart.c.obj)
+ .debug_loc     0x0000000000029d92       0x7e zephyr/kernel/libkernel.a(busy_wait.c.obj)
+ .debug_loc     0x0000000000029e10      0x155 zephyr/kernel/libkernel.a(device.c.obj)
+ .debug_loc     0x0000000000029f65      0x8d5 zephyr/kernel/libkernel.a(fatal.c.obj)
+ .debug_loc     0x000000000002a83a      0x7f6 zephyr/kernel/libkernel.a(init.c.obj)
+ .debug_loc     0x000000000002b030       0x85 zephyr/kernel/libkernel.a(idle.c.obj)
+ .debug_loc     0x000000000002b0b5      0x881 zephyr/kernel/libkernel.a(mutex.c.obj)
+ .debug_loc     0x000000000002b936      0x7db zephyr/kernel/libkernel.a(sem.c.obj)
+ .debug_loc     0x000000000002c111      0xa4d zephyr/kernel/libkernel.a(thread.c.obj)
+ .debug_loc     0x000000000002cb5e     0x461a zephyr/kernel/libkernel.a(sched.c.obj)
+ .debug_loc     0x0000000000031178      0x3e2 zephyr/kernel/libkernel.a(timeslicing.c.obj)
+ .debug_loc     0x000000000003155a      0xff5 zephyr/kernel/libkernel.a(timeout.c.obj)
+ .debug_loc     0x000000000003254f      0xa32 zephyr/kernel/libkernel.a(timer.c.obj)
+ .debug_loc     0x0000000000032f81      0x83f zephyr/kernel/libkernel.a(mempool.c.obj)
+ .debug_loc     0x00000000000337c0      0x932 zephyr/kernel/libkernel.a(kheap.c.obj)
 
 .debug_macinfo
  *(SORT_BY_ALIGNMENT(.debug_macinfo))
@@ -5996,323 +6180,349 @@ net_buf_pool_area
  .ARM.attributes
                 0x0000000000000252       0x36 app/libapp.a(uart_bt.c.obj)
  .ARM.attributes
-                0x0000000000000288       0x36 zephyr/libzephyr.a(heap.c.obj)
+                0x0000000000000288       0x36 app/libapp.a(command_parser.c.obj)
  .ARM.attributes
-                0x00000000000002be       0x36 zephyr/libzephyr.a(cbprintf_packaged.c.obj)
+                0x00000000000002be       0x36 zephyr/libzephyr.a(heap.c.obj)
  .ARM.attributes
-                0x00000000000002f4       0x36 zephyr/libzephyr.a(clock.c.obj)
+                0x00000000000002f4       0x36 zephyr/libzephyr.a(cbprintf_packaged.c.obj)
  .ARM.attributes
-                0x000000000000032a       0x36 zephyr/libzephyr.a(printk.c.obj)
+                0x000000000000032a       0x36 zephyr/libzephyr.a(clock.c.obj)
  .ARM.attributes
-                0x0000000000000360       0x36 zephyr/libzephyr.a(sem.c.obj)
+                0x0000000000000360       0x36 zephyr/libzephyr.a(printk.c.obj)
  .ARM.attributes
-                0x0000000000000396       0x36 zephyr/libzephyr.a(thread_entry.c.obj)
+                0x0000000000000396       0x36 zephyr/libzephyr.a(sem.c.obj)
  .ARM.attributes
-                0x00000000000003cc       0x36 zephyr/libzephyr.a(cbprintf_complete.c.obj)
+                0x00000000000003cc       0x36 zephyr/libzephyr.a(thread_entry.c.obj)
  .ARM.attributes
-                0x0000000000000402       0x36 zephyr/libzephyr.a(cbprintf.c.obj)
+                0x0000000000000402       0x36 zephyr/libzephyr.a(cbprintf_complete.c.obj)
  .ARM.attributes
-                0x0000000000000438       0x36 zephyr/libzephyr.a(assert.c.obj)
+                0x0000000000000438       0x36 zephyr/libzephyr.a(cbprintf.c.obj)
  .ARM.attributes
-                0x000000000000046e       0x36 zephyr/libzephyr.a(mpsc_pbuf.c.obj)
+                0x000000000000046e       0x36 zephyr/libzephyr.a(assert.c.obj)
  .ARM.attributes
-                0x00000000000004a4       0x36 zephyr/libzephyr.a(dec.c.obj)
+                0x00000000000004a4       0x36 zephyr/libzephyr.a(mpsc_pbuf.c.obj)
  .ARM.attributes
-                0x00000000000004da       0x36 zephyr/libzephyr.a(hex.c.obj)
+                0x00000000000004da       0x36 zephyr/libzephyr.a(dec.c.obj)
  .ARM.attributes
-                0x0000000000000510       0x36 zephyr/libzephyr.a(rb.c.obj)
+                0x0000000000000510       0x36 zephyr/libzephyr.a(hex.c.obj)
  .ARM.attributes
-                0x0000000000000546       0x36 zephyr/libzephyr.a(timeutil.c.obj)
+                0x0000000000000546       0x36 zephyr/libzephyr.a(rb.c.obj)
  .ARM.attributes
-                0x000000000000057c       0x36 zephyr/libzephyr.a(bitarray.c.obj)
+                0x000000000000057c       0x36 zephyr/libzephyr.a(timeutil.c.obj)
  .ARM.attributes
-                0x00000000000005b2       0x36 zephyr/libzephyr.a(ring_buffer.c.obj)
+                0x00000000000005b2       0x36 zephyr/libzephyr.a(bitarray.c.obj)
  .ARM.attributes
-                0x00000000000005e8       0x36 zephyr/libzephyr.a(last_section_id.c.obj)
+                0x00000000000005e8       0x36 zephyr/libzephyr.a(ring_buffer.c.obj)
  .ARM.attributes
-                0x000000000000061e       0x36 zephyr/libzephyr.a(configs.c.obj)
+                0x000000000000061e       0x36 zephyr/libzephyr.a(last_section_id.c.obj)
  .ARM.attributes
-                0x0000000000000654       0x36 zephyr/libzephyr.a(flash_configuration.c.obj)
+                0x0000000000000654       0x36 zephyr/libzephyr.a(configs.c.obj)
  .ARM.attributes
-                0x000000000000068a       0x36 zephyr/libzephyr.a(soc.c.obj)
+                0x000000000000068a       0x36 zephyr/libzephyr.a(flash_configuration.c.obj)
  .ARM.attributes
-                0x00000000000006c0       0x36 zephyr/libzephyr.a(nxp_mpu_regions.c.obj)
+                0x00000000000006c0       0x36 zephyr/libzephyr.a(soc.c.obj)
  .ARM.attributes
-                0x00000000000006f6       0x36 zephyr/libzephyr.a(log_core.c.obj)
+                0x00000000000006f6       0x36 zephyr/libzephyr.a(nxp_mpu_regions.c.obj)
  .ARM.attributes
-                0x000000000000072c       0x36 zephyr/libzephyr.a(log_mgmt.c.obj)
+                0x000000000000072c       0x36 zephyr/libzephyr.a(log_core.c.obj)
  .ARM.attributes
-                0x0000000000000762       0x36 zephyr/libzephyr.a(log_cache.c.obj)
+                0x0000000000000762       0x36 zephyr/libzephyr.a(log_mgmt.c.obj)
  .ARM.attributes
-                0x0000000000000798       0x36 zephyr/libzephyr.a(log_msg.c.obj)
+                0x0000000000000798       0x36 zephyr/libzephyr.a(log_cache.c.obj)
  .ARM.attributes
-                0x00000000000007ce       0x36 zephyr/libzephyr.a(log_output.c.obj)
+                0x00000000000007ce       0x36 zephyr/libzephyr.a(log_msg.c.obj)
  .ARM.attributes
-                0x0000000000000804       0x36 zephyr/libzephyr.a(log_backend_uart.c.obj)
+                0x0000000000000804       0x36 zephyr/libzephyr.a(log_output.c.obj)
  .ARM.attributes
-                0x000000000000083a       0x36 zephyr/libzephyr.a(mem_attr.c.obj)
+                0x000000000000083a       0x36 zephyr/libzephyr.a(log_backend_uart.c.obj)
  .ARM.attributes
-                0x0000000000000870       0x36 zephyr/libzephyr.a(tracing_none.c.obj)
+                0x0000000000000870       0x36 zephyr/libzephyr.a(mem_attr.c.obj)
  .ARM.attributes
-                0x00000000000008a6       0x36 zephyr/arch/common/libarch__common.a(sw_isr_common.c.obj)
+                0x00000000000008a6       0x36 zephyr/libzephyr.a(tracing_none.c.obj)
  .ARM.attributes
-                0x00000000000008dc       0x36 zephyr/arch/arch/arm/core/libarch__arm__core.a(fatal.c.obj)
+                0x00000000000008dc       0x36 zephyr/arch/common/libarch__common.a(sw_isr_common.c.obj)
  .ARM.attributes
-                0x0000000000000912       0x36 zephyr/arch/arch/arm/core/libarch__arm__core.a(nmi.c.obj)
+                0x0000000000000912       0x36 zephyr/arch/arch/arm/core/libarch__arm__core.a(fatal.c.obj)
  .ARM.attributes
-                0x0000000000000948       0x20 zephyr/arch/arch/arm/core/libarch__arm__core.a(nmi_on_reset.S.obj)
+                0x0000000000000948       0x36 zephyr/arch/arch/arm/core/libarch__arm__core.a(nmi.c.obj)
  .ARM.attributes
-                0x0000000000000968       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(exc_exit.c.obj)
+                0x000000000000097e       0x20 zephyr/arch/arch/arm/core/libarch__arm__core.a(nmi_on_reset.S.obj)
  .ARM.attributes
-                0x000000000000099e       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(fault.c.obj)
+                0x000000000000099e       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(exc_exit.c.obj)
  .ARM.attributes
-                0x00000000000009d4       0x20 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(fault_s.S.obj)
+                0x00000000000009d4       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(fault.c.obj)
  .ARM.attributes
-                0x00000000000009f4       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(fpu.c.obj)
+                0x0000000000000a0a       0x20 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(fault_s.S.obj)
  .ARM.attributes
-                0x0000000000000a2a       0x20 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(reset.S.obj)
+                0x0000000000000a2a       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(fpu.c.obj)
  .ARM.attributes
-                0x0000000000000a4a       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(scb.c.obj)
+                0x0000000000000a60       0x20 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(reset.S.obj)
  .ARM.attributes
-                0x0000000000000a80       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(thread_abort.c.obj)
+                0x0000000000000a80       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(scb.c.obj)
  .ARM.attributes
-                0x0000000000000ab6       0x22 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(vector_table.S.obj)
+                0x0000000000000ab6       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(thread_abort.c.obj)
  .ARM.attributes
-                0x0000000000000ad8       0x20 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(swap_helper.S.obj)
+                0x0000000000000aec       0x22 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(vector_table.S.obj)
  .ARM.attributes
-                0x0000000000000af8       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(irq_manage.c.obj)
+                0x0000000000000b0e       0x20 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(swap_helper.S.obj)
  .ARM.attributes
-                0x0000000000000b2e       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(prep_c.c.obj)
+                0x0000000000000b2e       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(irq_manage.c.obj)
  .ARM.attributes
-                0x0000000000000b64       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(thread.c.obj)
+                0x0000000000000b64       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(prep_c.c.obj)
  .ARM.attributes
-                0x0000000000000b9a       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(cpu_idle.c.obj)
+                0x0000000000000b9a       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(thread.c.obj)
  .ARM.attributes
-                0x0000000000000bd0       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(irq_init.c.obj)
+                0x0000000000000bd0       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(cpu_idle.c.obj)
  .ARM.attributes
-                0x0000000000000c06       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(isr_wrapper.c.obj)
+                0x0000000000000c06       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(irq_init.c.obj)
  .ARM.attributes
-                0x0000000000000c3c       0x36 zephyr/arch/arch/arm/core/mpu/libarch__arm__core__mpu.a(arm_core_mpu.c.obj)
+                0x0000000000000c3c       0x36 zephyr/arch/arch/arm/core/cortex_m/libarch__arm__core__cortex_m.a(isr_wrapper.c.obj)
  .ARM.attributes
-                0x0000000000000c72       0x36 zephyr/arch/arch/arm/core/mpu/libarch__arm__core__mpu.a(nxp_mpu.c.obj)
+                0x0000000000000c72       0x36 zephyr/arch/arch/arm/core/mpu/libarch__arm__core__mpu.a(arm_core_mpu.c.obj)
  .ARM.attributes
-                0x0000000000000ca8       0x36 zephyr/lib/libc/newlib/liblib__libc__newlib.a(libc-hooks.c.obj)
+                0x0000000000000ca8       0x36 zephyr/arch/arch/arm/core/mpu/libarch__arm__core__mpu.a(nxp_mpu.c.obj)
  .ARM.attributes
-                0x0000000000000cde       0x36 zephyr/lib/libc/common/liblib__libc__common.a(abort.c.obj)
+                0x0000000000000cde       0x36 zephyr/lib/libc/newlib/liblib__libc__newlib.a(libc-hooks.c.obj)
  .ARM.attributes
-                0x0000000000000d14       0x36 zephyr/lib/libc/common/liblib__libc__common.a(time.c.obj)
+                0x0000000000000d14       0x36 zephyr/lib/libc/common/liblib__libc__common.a(abort.c.obj)
  .ARM.attributes
-                0x0000000000000d4a       0x36 zephyr/drivers/adc/libdrivers__adc.a(adc_common.c.obj)
+                0x0000000000000d4a       0x36 zephyr/lib/libc/common/liblib__libc__common.a(time.c.obj)
  .ARM.attributes
-                0x0000000000000d80       0x36 zephyr/drivers/adc/libdrivers__adc.a(adc_mcux_adc16.c.obj)
+                0x0000000000000d80       0x36 zephyr/drivers/adc/libdrivers__adc.a(adc_common.c.obj)
  .ARM.attributes
-                0x0000000000000db6       0x36 zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_mcg.c.obj)
+                0x0000000000000db6       0x36 zephyr/drivers/adc/libdrivers__adc.a(adc_mcux_adc16.c.obj)
  .ARM.attributes
-                0x0000000000000dec       0x36 zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_sim.c.obj)
+                0x0000000000000dec       0x36 zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_mcg.c.obj)
  .ARM.attributes
-                0x0000000000000e22       0x36 zephyr/drivers/console/libdrivers__console.a(uart_console.c.obj)
+                0x0000000000000e22       0x36 zephyr/drivers/clock_control/libdrivers__clock_control.a(clock_control_mcux_sim.c.obj)
  .ARM.attributes
-                0x0000000000000e58       0x36 zephyr/drivers/gpio/libdrivers__gpio.a(gpio_mcux.c.obj)
+                0x0000000000000e58       0x36 zephyr/drivers/console/libdrivers__console.a(uart_console.c.obj)
  .ARM.attributes
-                0x0000000000000e8e       0x36 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_common.c.obj)
+                0x0000000000000e8e       0x36 zephyr/drivers/gpio/libdrivers__gpio.a(gpio_mcux.c.obj)
  .ARM.attributes
-                0x0000000000000ec4       0x36 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_mcux.c.obj)
+                0x0000000000000ec4       0x36 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_common.c.obj)
  .ARM.attributes
-                0x0000000000000efa       0x36 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(common.c.obj)
+                0x0000000000000efa       0x36 zephyr/drivers/i2c/libdrivers__i2c.a(i2c_mcux.c.obj)
  .ARM.attributes
-                0x0000000000000f30       0x36 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
+                0x0000000000000f30       0x36 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(common.c.obj)
  .ARM.attributes
-                0x0000000000000f66       0x36 zephyr/drivers/sensor/aosong/dht/libdrivers__sensor__aosong__dht.a(dht.c.obj)
+                0x0000000000000f66       0x36 zephyr/drivers/pinctrl/libdrivers__pinctrl.a(pinctrl_nxp_port.c.obj)
  .ARM.attributes
-                0x0000000000000f9c       0x36 zephyr/drivers/sensor/nxp/fxos8700/libdrivers__sensor__nxp__fxos8700.a(fxos8700.c.obj)
+                0x0000000000000f9c       0x36 zephyr/drivers/sensor/aosong/dht/libdrivers__sensor__aosong__dht.a(dht.c.obj)
  .ARM.attributes
-                0x0000000000000fd2       0x36 zephyr/drivers/sensor/nxp/nxp_kinetis_temp/libdrivers__sensor__nxp__nxp_kinetis_temp.a(temp_kinetis.c.obj)
+                0x0000000000000fd2       0x36 zephyr/drivers/sensor/nxp/fxos8700/libdrivers__sensor__nxp__fxos8700.a(fxos8700.c.obj)
  .ARM.attributes
-                0x0000000000001008       0x36 zephyr/drivers/sensor/rohm/bh1750/libdrivers__sensor__rohm__bh1750.a(bh1750.c.obj)
+                0x0000000000001008       0x36 zephyr/drivers/sensor/nxp/nxp_kinetis_temp/libdrivers__sensor__nxp__nxp_kinetis_temp.a(temp_kinetis.c.obj)
  .ARM.attributes
-                0x000000000000103e       0x36 zephyr/drivers/sensor/lm35/libdrivers__sensor__lm35.a(lm35.c.obj)
+                0x000000000000103e       0x36 zephyr/drivers/sensor/rohm/bh1750/libdrivers__sensor__rohm__bh1750.a(bh1750.c.obj)
  .ARM.attributes
-                0x0000000000001074       0x36 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
+                0x0000000000001074       0x36 zephyr/drivers/sensor/lm35/libdrivers__sensor__lm35.a(lm35.c.obj)
  .ARM.attributes
-                0x00000000000010aa       0x36 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
+                0x00000000000010aa       0x36 zephyr/drivers/serial/libdrivers__serial.a(uart_mcux.c.obj)
  .ARM.attributes
-                0x00000000000010e0       0x36 zephyr/drivers/timer/libdrivers__timer.a(sys_clock_init.c.obj)
+                0x00000000000010e0       0x36 zephyr/drivers/spi/libdrivers__spi.a(spi_mcux_dspi.c.obj)
  .ARM.attributes
-                0x0000000000001116       0x36 zephyr/drivers/timer/libdrivers__timer.a(cortex_m_systick.c.obj)
+                0x0000000000001116       0x36 zephyr/drivers/timer/libdrivers__timer.a(sys_clock_init.c.obj)
  .ARM.attributes
-                0x000000000000114c       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_clock.c.obj)
+                0x000000000000114c       0x36 zephyr/drivers/timer/libdrivers__timer.a(cortex_m_systick.c.obj)
  .ARM.attributes
-                0x0000000000001182       0x36 modules/hal_nxp/libmodules__hal_nxp.a(system_MK64F12.c.obj)
+                0x0000000000001182       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_clock.c.obj)
  .ARM.attributes
-                0x00000000000011b8       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_common.c.obj)
+                0x00000000000011b8       0x36 modules/hal_nxp/libmodules__hal_nxp.a(system_MK64F12.c.obj)
  .ARM.attributes
-                0x00000000000011ee       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_common_arm.c.obj)
+                0x00000000000011ee       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_common.c.obj)
  .ARM.attributes
-                0x0000000000001224       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_adc16.c.obj)
+                0x0000000000001224       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_common_arm.c.obj)
  .ARM.attributes
-                0x000000000000125a       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_dspi.c.obj)
+                0x000000000000125a       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_adc16.c.obj)
  .ARM.attributes
-                0x0000000000001290       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_i2c.c.obj)
+                0x0000000000001290       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_dspi.c.obj)
  .ARM.attributes
-                0x00000000000012c6       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_sysmpu.c.obj)
+                0x00000000000012c6       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_i2c.c.obj)
  .ARM.attributes
-                0x00000000000012fc       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_uart.c.obj)
+                0x00000000000012fc       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_sysmpu.c.obj)
  .ARM.attributes
-                0x0000000000001332       0x36 zephyr/kernel/libkernel.a(busy_wait.c.obj)
+                0x0000000000001332       0x36 modules/hal_nxp/libmodules__hal_nxp.a(fsl_uart.c.obj)
  .ARM.attributes
-                0x0000000000001368       0x36 zephyr/kernel/libkernel.a(device.c.obj)
+                0x0000000000001368       0x36 zephyr/kernel/libkernel.a(busy_wait.c.obj)
  .ARM.attributes
-                0x000000000000139e       0x36 zephyr/kernel/libkernel.a(errno.c.obj)
+                0x000000000000139e       0x36 zephyr/kernel/libkernel.a(device.c.obj)
  .ARM.attributes
-                0x00000000000013d4       0x36 zephyr/kernel/libkernel.a(fatal.c.obj)
+                0x00000000000013d4       0x36 zephyr/kernel/libkernel.a(errno.c.obj)
  .ARM.attributes
-                0x000000000000140a       0x36 zephyr/kernel/libkernel.a(init.c.obj)
+                0x000000000000140a       0x36 zephyr/kernel/libkernel.a(fatal.c.obj)
  .ARM.attributes
-                0x0000000000001440       0x36 zephyr/kernel/libkernel.a(idle.c.obj)
+                0x0000000000001440       0x36 zephyr/kernel/libkernel.a(init.c.obj)
  .ARM.attributes
-                0x0000000000001476       0x36 zephyr/kernel/libkernel.a(mutex.c.obj)
+                0x0000000000001476       0x36 zephyr/kernel/libkernel.a(idle.c.obj)
  .ARM.attributes
-                0x00000000000014ac       0x36 zephyr/kernel/libkernel.a(sem.c.obj)
+                0x00000000000014ac       0x36 zephyr/kernel/libkernel.a(msg_q.c.obj)
  .ARM.attributes
-                0x00000000000014e2       0x36 zephyr/kernel/libkernel.a(thread.c.obj)
+                0x00000000000014e2       0x36 zephyr/kernel/libkernel.a(mutex.c.obj)
  .ARM.attributes
-                0x0000000000001518       0x36 zephyr/kernel/libkernel.a(sched.c.obj)
+                0x0000000000001518       0x36 zephyr/kernel/libkernel.a(sem.c.obj)
  .ARM.attributes
-                0x000000000000154e       0x36 zephyr/kernel/libkernel.a(timeslicing.c.obj)
+                0x000000000000154e       0x36 zephyr/kernel/libkernel.a(thread.c.obj)
  .ARM.attributes
-                0x0000000000001584       0x36 zephyr/kernel/libkernel.a(xip.c.obj)
+                0x0000000000001584       0x36 zephyr/kernel/libkernel.a(sched.c.obj)
  .ARM.attributes
-                0x00000000000015ba       0x36 zephyr/kernel/libkernel.a(timeout.c.obj)
+                0x00000000000015ba       0x36 zephyr/kernel/libkernel.a(timeslicing.c.obj)
  .ARM.attributes
-                0x00000000000015f0       0x36 zephyr/kernel/libkernel.a(timer.c.obj)
+                0x00000000000015f0       0x36 zephyr/kernel/libkernel.a(xip.c.obj)
  .ARM.attributes
-                0x0000000000001626       0x36 zephyr/kernel/libkernel.a(mempool.c.obj)
+                0x0000000000001626       0x36 zephyr/kernel/libkernel.a(timeout.c.obj)
  .ARM.attributes
-                0x000000000000165c       0x36 zephyr/kernel/libkernel.a(banner.c.obj)
+                0x000000000000165c       0x36 zephyr/kernel/libkernel.a(timer.c.obj)
  .ARM.attributes
-                0x0000000000001692       0x36 zephyr/kernel/libkernel.a(kheap.c.obj)
+                0x0000000000001692       0x36 zephyr/kernel/libkernel.a(mempool.c.obj)
  .ARM.attributes
-                0x00000000000016c8       0x36 zephyr/arch/common/libisr_tables.a(isr_tables.c.obj)
+                0x00000000000016c8       0x36 zephyr/kernel/libkernel.a(banner.c.obj)
  .ARM.attributes
-                0x00000000000016fe       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-ctype_.o)
+                0x00000000000016fe       0x36 zephyr/kernel/libkernel.a(kheap.c.obj)
  .ARM.attributes
-                0x0000000000001732       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-malloc.o)
+                0x0000000000001734       0x36 zephyr/arch/common/libisr_tables.a(isr_tables.c.obj)
  .ARM.attributes
-                0x0000000000001766       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mallocr.o)
+                0x000000000000176a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-atof.o)
  .ARM.attributes
-                0x000000000000179a       0x20 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memcpy.o)
+                0x000000000000179e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-ctype_.o)
  .ARM.attributes
-                0x00000000000017ba       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memset.o)
+                0x00000000000017d2       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-malloc.o)
  .ARM.attributes
-                0x00000000000017ee       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mlock.o)
+                0x0000000000001806       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mallocr.o)
  .ARM.attributes
-                0x0000000000001822       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-sbrkr.o)
+                0x000000000000183a       0x20 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memcpy.o)
  .ARM.attributes
-                0x0000000000001856       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-snprintf.o)
+                0x000000000000185a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memset.o)
  .ARM.attributes
-                0x000000000000188a       0x20 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strcmp.o)
+                0x000000000000188e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mlock.o)
  .ARM.attributes
-                0x00000000000018aa       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strcpy.o)
+                0x00000000000018c2       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-sbrkr.o)
  .ARM.attributes
-                0x00000000000018de       0x1c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strlen.o)
+                0x00000000000018f6       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-snprintf.o)
  .ARM.attributes
-                0x00000000000018fa       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strnlen.o)
+                0x000000000000192a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strchr.o)
  .ARM.attributes
-                0x000000000000192e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o)
+                0x000000000000195e       0x20 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strcmp.o)
  .ARM.attributes
-                0x0000000000001962       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-dtoa.o)
+                0x000000000000197e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strcpy.o)
  .ARM.attributes
-                0x0000000000001996       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-freer.o)
+                0x00000000000019b2       0x1c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strlen.o)
  .ARM.attributes
-                0x00000000000019ca       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-impure.o)
+                0x00000000000019ce       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
  .ARM.attributes
-                0x00000000000019fe       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-localeconv.o)
+                0x0000000000001a02       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strnlen.o)
  .ARM.attributes
-                0x0000000000001a32       0x1c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memchr.o)
+                0x0000000000001a36       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtod.o)
  .ARM.attributes
-                0x0000000000001a4e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
+                0x0000000000001a6a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok.o)
  .ARM.attributes
-                0x0000000000001a82       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-reent.o)
+                0x0000000000001a9e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strtok_r.o)
  .ARM.attributes
-                0x0000000000001ab6       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_frexp.o)
+                0x0000000000001ad2       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfprintf.o)
  .ARM.attributes
-                0x0000000000001aea       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncpy.o)
+                0x0000000000001b06       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-dtoa.o)
  .ARM.attributes
-                0x0000000000001b1e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o)
+                0x0000000000001b3a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-freer.o)
  .ARM.attributes
-                0x0000000000001b52       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-assert.o)
+                0x0000000000001b6e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-gethex.o)
  .ARM.attributes
-                0x0000000000001b86       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-callocr.o)
+                0x0000000000001ba2       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-gdtoa-hexnan.o)
  .ARM.attributes
-                0x0000000000001bba       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fiprintf.o)
+                0x0000000000001bd6       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-impure.o)
  .ARM.attributes
-                0x0000000000001bee       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
+                0x0000000000001c0a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-lnumeric.o)
  .ARM.attributes
-                0x0000000000001c22       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
+                0x0000000000001c3e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-locale.o)
  .ARM.attributes
-                0x0000000000001c56       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memmove.o)
+                0x0000000000001c72       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-localeconv.o)
  .ARM.attributes
-                0x0000000000001c8a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-reallocr.o)
+                0x0000000000001ca6       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mbtowc_r.o)
  .ARM.attributes
-                0x0000000000001cbe       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
+                0x0000000000001cda       0x1c C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memchr.o)
  .ARM.attributes
-                0x0000000000001cf2       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
+                0x0000000000001cf6       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-mprec.o)
  .ARM.attributes
-                0x0000000000001d26       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wsetup.o)
+                0x0000000000001d2a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-reent.o)
  .ARM.attributes
-                0x0000000000001d5a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fflush.o)
+                0x0000000000001d5e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_frexp.o)
  .ARM.attributes
-                0x0000000000001d8e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-findfp.o)
+                0x0000000000001d92       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-s_nan.o)
  .ARM.attributes
-                0x0000000000001dc2       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fvwrite.o)
+                0x0000000000001dc6       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-sf_nan.o)
  .ARM.attributes
-                0x0000000000001df6       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fwalk.o)
+                0x0000000000001dfa       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-strncmp.o)
  .ARM.attributes
-                0x0000000000001e2a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-makebuf.o)
+                0x0000000000001e2e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-svfiprintf.o)
  .ARM.attributes
-                0x0000000000001e5e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-stdio.o)
+                0x0000000000001e62       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wctomb_r.o)
  .ARM.attributes
-                0x0000000000001e92       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-writer.o)
+                0x0000000000001e96       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-assert.o)
  .ARM.attributes
-                0x0000000000001ec6       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-closer.o)
+                0x0000000000001eca       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-callocr.o)
  .ARM.attributes
-                0x0000000000001efa       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fstatr.o)
+                0x0000000000001efe       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fiprintf.o)
  .ARM.attributes
-                0x0000000000001f2e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-isattyr.o)
+                0x0000000000001f32       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-memmove.o)
  .ARM.attributes
-                0x0000000000001f62       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-lseekr.o)
+                0x0000000000001f66       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-reallocr.o)
  .ARM.attributes
-                0x0000000000001f96       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-readr.o)
+                0x0000000000001f9a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-vfiprintf.o)
  .ARM.attributes
-                0x0000000000001fca       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldf3.o)
+                0x0000000000001fce       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-wsetup.o)
  .ARM.attributes
-                0x0000000000001fec       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_addsubdf3.o)
+                0x0000000000002002       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fflush.o)
  .ARM.attributes
-                0x000000000000200e       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldivdf3.o)
+                0x0000000000002036       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-findfp.o)
  .ARM.attributes
-                0x0000000000002030       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_cmpdf2.o)
+                0x000000000000206a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fvwrite.o)
  .ARM.attributes
-                0x0000000000002052       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_unorddf2.o)
+                0x000000000000209e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fwalk.o)
  .ARM.attributes
-                0x0000000000002074       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixdfsi.o)
+                0x00000000000020d2       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-makebuf.o)
  .ARM.attributes
-                0x0000000000002096       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
+                0x0000000000002106       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-stdio.o)
  .ARM.attributes
-                0x00000000000020b8       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_ldivmod.o)
+                0x000000000000213a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-writer.o)
  .ARM.attributes
-                0x00000000000020da       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_uldivmod.o)
+                0x000000000000216e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-closer.o)
  .ARM.attributes
-                0x00000000000020fc       0x34 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_popcountsi2.o)
+                0x00000000000021a2       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-fstatr.o)
  .ARM.attributes
-                0x0000000000002130       0x34 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_fixdfdi.o)
+                0x00000000000021d6       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-isattyr.o)
  .ARM.attributes
-                0x0000000000002164       0x34 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_fixunsdfdi.o)
+                0x000000000000220a       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-lseekr.o)
  .ARM.attributes
-                0x0000000000002198       0x34 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_udivmoddi4.o)
+                0x000000000000223e       0x34 C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/arm-zephyr-eabi/lib/thumb/v7e-m+fp/hard\libc.a(lib_a-readr.o)
  .ARM.attributes
-                0x00000000000021cc       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_dvmd_tls.o)
+                0x0000000000002272       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldf3.o)
  .ARM.attributes
-                0x00000000000021ee       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
+                0x0000000000002294       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_addsubdf3.o)
+ .ARM.attributes
+                0x00000000000022b6       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_muldivdf3.o)
+ .ARM.attributes
+                0x00000000000022d8       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_cmpdf2.o)
+ .ARM.attributes
+                0x00000000000022fa       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_unorddf2.o)
+ .ARM.attributes
+                0x000000000000231c       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixdfsi.o)
+ .ARM.attributes
+                0x000000000000233e       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_fixunsdfsi.o)
+ .ARM.attributes
+                0x0000000000002360       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_arm_truncdfsf2.o)
+ .ARM.attributes
+                0x0000000000002382       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_ldivmod.o)
+ .ARM.attributes
+                0x00000000000023a4       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_aeabi_uldivmod.o)
+ .ARM.attributes
+                0x00000000000023c6       0x34 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_popcountsi2.o)
+ .ARM.attributes
+                0x00000000000023fa       0x34 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_fixdfdi.o)
+ .ARM.attributes
+                0x000000000000242e       0x34 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_fixunsdfdi.o)
+ .ARM.attributes
+                0x0000000000002462       0x34 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_udivmoddi4.o)
+ .ARM.attributes
+                0x0000000000002496       0x22 c:/users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/12.2.0/thumb/v7e-m+fp/hard\libgcc.a(_dvmd_tls.o)
  *(SORT_BY_ALIGNMENT(.gnu.attributes))
 
 SRAML           0x000000001fff0000        0x0
