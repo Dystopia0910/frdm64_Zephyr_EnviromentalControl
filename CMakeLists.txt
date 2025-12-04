@@ -11,6 +11,10 @@ target_sources(app PRIVATE "src/SPI_LCD/lcd_nokia_images.c")
 target_sources(app PRIVATE "src/SPI_LCD/lcd_nokia_draw.c")
 target_sources(app PRIVATE "src/display_manager.c")
 target_sources(app PRIVATE "src/sensor_manager.c")
+target_sources(app PRIVATE "src/env_controller.c")
+target_sources(app PRIVATE "src/mode_controller.c")
+target_sources(app PRIVATE "src/adjust_manager.c")
+target_sources(app PRIVATE "src/uart_bt.c")
 
 target_include_directories(app PRIVATE src/SPI_LCD)
 

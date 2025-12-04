@@ -11848,7 +11848,7 @@
 #define DT_N_S_soc_S_uart_4006d000_P_pinctrl_0_FOREACH_PROP_ELEM_SEP_VARGS(fn, sep, ...) fn(DT_N_S_soc_S_uart_4006d000, pinctrl_0, 0, __VA_ARGS__)
 #define DT_N_S_soc_S_uart_4006d000_P_pinctrl_0_LEN 1
 #define DT_N_S_soc_S_uart_4006d000_P_pinctrl_0_EXISTS 1
-#define DT_N_S_soc_S_uart_4006d000_P_current_speed 115200
+#define DT_N_S_soc_S_uart_4006d000_P_current_speed 9600
 #define DT_N_S_soc_S_uart_4006d000_P_current_speed_EXISTS 1
 #define DT_N_S_soc_S_uart_4006d000_P_hw_flow_control 0
 #define DT_N_S_soc_S_uart_4006d000_P_hw_flow_control_EXISTS 1

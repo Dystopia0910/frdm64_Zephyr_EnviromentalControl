@@ -299,10 +299,10 @@
 			interrupt-names = "status",
 			                  "error";        /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:231 */
 			clocks = < &sim 0x2 0x1034 0xd >; /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:232 */
-			status = "okay";                  /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:104 */
-			current-speed = < 0x1c200 >;      /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:105 */
-			pinctrl-0 = < &uart3_default >;   /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:106 */
-			pinctrl-names = "default";        /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:107 */
+			status = "okay";                  /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:97 */
+			current-speed = < 0x2580 >;       /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:98 */
+			pinctrl-0 = < &uart3_default >;   /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:99 */
+			pinctrl-names = "default";        /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:100 */
 		};
 
 		/* node '/soc/uart@400ea000' defined in zephyr\dts\arm\nxp\nxp_k6x.dtsi:237 */
@@ -1081,7 +1081,7 @@
 
 		/* node '/pinctrl/uart3_default' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:166 */
 		uart3_default: uart3_default {
-			phandle = < 0x8 >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:106 */
+			phandle = < 0x8 >; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:99 */
 
 			/* node '/pinctrl/uart3_default/group0' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:167 */
 			group0 {

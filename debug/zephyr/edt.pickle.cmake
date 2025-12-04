@@ -332,7 +332,7 @@ set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_NODELABEL|uart3" "/soc
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_NODELABEL|arduino_serial" "/soc/uart@4006d000")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/uart@4006d000|reg" "1074188288;4096;")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/uart@4006d000|interrupts" "37;0;38;0;")
-set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/uart@4006d000|current-speed" "115200")
+set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/uart@4006d000|current-speed" "9600")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/uart@4006d000|hw-flow-control" "False")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/uart@4006d000|parity" "none")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/uart@4006d000|status" "okay")

@@ -1213,5 +1213,12 @@ zephyr_udc0: &usbotg {
         label = "DHT11 Humidity Sensor";
     };
 };
+
+&uart3 {
+    status = "okay";
+    current-speed = <9600>;
+    pinctrl-0 = <&uart3_default>;
+    pinctrl-names = "default";
+};
 # 0 "<command-line>" 2
 # 1 "C:/Users/mauri/VSCode/zephyr/zephyr/misc/empty_file.c"

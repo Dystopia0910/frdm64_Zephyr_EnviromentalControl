@@ -92,3 +92,10 @@
         label = "DHT11 Humidity Sensor";
     };
 };
+
+&uart3 {
+    status = "okay";
+    current-speed = <9600>;  // HC-05 típicamente usa 9600
+    pinctrl-0 = <&uart3_default>;
+    pinctrl-names = "default";
+};
