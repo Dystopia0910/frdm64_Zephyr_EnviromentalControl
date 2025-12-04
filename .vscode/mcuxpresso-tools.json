@@ -1,0 +1,13 @@
+{
+  "version": "25.3",
+  "toolchainPath": "C:/Users/mauri/zephyr-sdk-0.17.4/arm-zephyr-eabi",
+  "linkedProjects": [],
+  "trustZoneType": "none",
+  "multicoreType": "none",
+  "projectType": "zephyr-freestanding",
+  "sdk": {
+    "path": "c:\\Users\\mauri\\VSCode\\zephyr",
+    "version": "4.2.1"
+  },
+  "projectName": "frdm64_Zephyr_EnviromentalControl"
+}
