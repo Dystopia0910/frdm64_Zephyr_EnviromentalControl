@@ -207,3 +207,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/wsen/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/lm35/cmake_install.cmake")
+endif()
+

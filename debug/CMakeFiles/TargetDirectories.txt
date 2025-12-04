@@ -198,6 +198,9 @@ C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/ams/CMakeFile
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/ams/CMakeFiles/rebuild_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/aosong/CMakeFiles/edit_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/aosong/CMakeFiles/rebuild_cache.dir
+C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/aosong/dht/CMakeFiles/drivers__sensor__aosong__dht.dir
+C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/aosong/dht/CMakeFiles/edit_cache.dir
+C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/aosong/dht/CMakeFiles/rebuild_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/asahi_kasei/CMakeFiles/edit_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/asahi_kasei/CMakeFiles/rebuild_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/bosch/CMakeFiles/edit_cache.dir
@@ -252,6 +255,9 @@ C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/renesas/CMake
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/renesas/CMakeFiles/rebuild_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/rohm/CMakeFiles/edit_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/rohm/CMakeFiles/rebuild_cache.dir
+C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/rohm/bh1750/CMakeFiles/drivers__sensor__rohm__bh1750.dir
+C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/rohm/bh1750/CMakeFiles/edit_cache.dir
+C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/rohm/bh1750/CMakeFiles/rebuild_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/seeed/CMakeFiles/edit_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/seeed/CMakeFiles/rebuild_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/sensirion/CMakeFiles/edit_cache.dir
@@ -268,6 +274,9 @@ C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/vishay/CMakeF
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/vishay/CMakeFiles/rebuild_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/wsen/CMakeFiles/edit_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/wsen/CMakeFiles/rebuild_cache.dir
+C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/lm35/CMakeFiles/drivers__sensor__lm35.dir
+C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/lm35/CMakeFiles/edit_cache.dir
+C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/sensor/lm35/CMakeFiles/rebuild_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/serial/CMakeFiles/drivers__serial.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/serial/CMakeFiles/edit_cache.dir
 C:/Users/mauri/VSCode/nokia_lcd_zephyr/debug/zephyr/drivers/serial/CMakeFiles/rebuild_cache.dir

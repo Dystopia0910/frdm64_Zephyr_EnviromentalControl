@@ -1119,24 +1119,33 @@ zephyr_udc0: &usbotg {
 };
 # 0 "<command-line>" 2
 # 1 "C:/Users/mauri/VSCode/nokia_lcd_zephyr/boards/frdm_k64f.overlay" 1
-
-/{
+/ {
     aliases {
-  cmd-data = &cmd_data;
-        reset-pin = &reset_sign;
- };
 
-    io_pins{
+        cmd-data = &cmd_data;
+        reset-pin = &reset_sign;
+
+
+        lm35 = &lm35_sensor;
+        bh1750 = &bh1750_sensor;
+        dht11 = &dht11_sensor;
+    };
+
+
+    io_pins {
         compatible = "gpio-leds";
-  cmd_data: cmd_data {
-   gpios = <&gpioc 5 (0 << 0)>;
-   label = "LCD Cmd_Data";
-  };
+
+        cmd_data: cmd_data {
+
+            gpios = <&gpioc 5 (0 << 0)>;
+            label = "LCD Cmd_Data";
+        };
 
         reset_sign: reset_sign {
-   gpios = <&gpioc 7 (0 << 0)>;
-   label = "LCD reset";
-  };
+
+            gpios = <&gpioc 7 (0 << 0)>;
+            label = "LCD Reset";
+        };
     };
 };
 
@@ -1150,6 +1159,58 @@ zephyr_udc0: &usbotg {
         compatible = "vnd,spi-device";
         reg = <0>;
         spi-max-frequency = <1000000>;
+    };
+};
+
+
+
+&adc0 {
+    status = "okay";
+
+    lm35_sensor: lm35 {
+        compatible = "lm35";
+
+
+        io-channels = <&adc0 6>;
+
+        status = "okay";
+        label = "LM35 Temperature Sensor";
+    };
+};
+
+
+
+
+
+
+
+&i2c0 {
+    status = "okay";
+    pinctrl-0 = <&i2c0_default>;
+    pinctrl-names = "default";
+
+    bh1750_sensor: bh1750@23 {
+        compatible = "rohm,bh1750";
+        reg = <0x23>;
+        status = "okay";
+        label = "BH1750 Light Sensor";
+    };
+};
+
+
+
+&gpioc {
+    status = "okay";
+
+    dht11_sensor: dht11 {
+        compatible = "aosong,dht";
+
+
+        dio-gpios = <&gpioc 3 ((1 << 0) | (1 << 4))>;
+
+
+        status = "okay";
+        label = "DHT11 Humidity Sensor";
     };
 };
 # 0 "<command-line>" 2

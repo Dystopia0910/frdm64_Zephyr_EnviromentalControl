@@ -432,6 +432,25 @@ rule C_STATIC_LIBRARY_LINKER__drivers__sensor_debug
 #############################################
 # Rule for compiling C files.
 
+rule C_COMPILER__drivers__sensor__aosong__dht_unscanned_debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ${LAUNCHER}${CODE_CHECK}C:\Users\mauri\zephyr-sdk-0.17.4\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building C object $out
+
+
+#############################################
+# Rule for linking C static library.
+
+rule C_STATIC_LIBRARY_LINKER__drivers__sensor__aosong__dht_debug
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && C:\Users\mauri\.mcuxpressotools\cmake-3.30.0-windows-x86_64\bin\cmake.exe -E rm -f $TARGET_FILE && C:\Users\mauri\zephyr-sdk-0.17.4\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\mauri\zephyr-sdk-0.17.4\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
+  description = Linking C static library $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
+# Rule for compiling C files.
+
 rule C_COMPILER__drivers__sensor__nxp__fxos8700_unscanned_debug
   depfile = $DEP_FILE
   deps = gcc
@@ -462,6 +481,44 @@ rule C_COMPILER__drivers__sensor__nxp__nxp_kinetis_temp_unscanned_debug
 # Rule for linking C static library.
 
 rule C_STATIC_LIBRARY_LINKER__drivers__sensor__nxp__nxp_kinetis_temp_debug
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && C:\Users\mauri\.mcuxpressotools\cmake-3.30.0-windows-x86_64\bin\cmake.exe -E rm -f $TARGET_FILE && C:\Users\mauri\zephyr-sdk-0.17.4\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\mauri\zephyr-sdk-0.17.4\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
+  description = Linking C static library $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
+# Rule for compiling C files.
+
+rule C_COMPILER__drivers__sensor__rohm__bh1750_unscanned_debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ${LAUNCHER}${CODE_CHECK}C:\Users\mauri\zephyr-sdk-0.17.4\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building C object $out
+
+
+#############################################
+# Rule for linking C static library.
+
+rule C_STATIC_LIBRARY_LINKER__drivers__sensor__rohm__bh1750_debug
+  command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && C:\Users\mauri\.mcuxpressotools\cmake-3.30.0-windows-x86_64\bin\cmake.exe -E rm -f $TARGET_FILE && C:\Users\mauri\zephyr-sdk-0.17.4\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\mauri\zephyr-sdk-0.17.4\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
+  description = Linking C static library $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
+# Rule for compiling C files.
+
+rule C_COMPILER__drivers__sensor__lm35_unscanned_debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ${LAUNCHER}${CODE_CHECK}C:\Users\mauri\zephyr-sdk-0.17.4\arm-zephyr-eabi\bin\arm-zephyr-eabi-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building C object $out
+
+
+#############################################
+# Rule for linking C static library.
+
+rule C_STATIC_LIBRARY_LINKER__drivers__sensor__lm35_debug
   command = C:\WINDOWS\system32\cmd.exe /C "$PRE_LINK && C:\Users\mauri\.mcuxpressotools\cmake-3.30.0-windows-x86_64\bin\cmake.exe -E rm -f $TARGET_FILE && C:\Users\mauri\zephyr-sdk-0.17.4\arm-zephyr-eabi\bin\arm-zephyr-eabi-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\Users\mauri\zephyr-sdk-0.17.4\arm-zephyr-eabi\bin\arm-zephyr-eabi-ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT

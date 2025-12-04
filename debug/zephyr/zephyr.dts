@@ -36,6 +36,9 @@
 		mcuboot-button0 = &user_button_2; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:21 */
 		cmd-data = &cmd_data;             /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:4 */
 		reset-pin = &reset_sign;          /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:5 */
+		lm35 = &lm35_sensor;              /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:8 */
+		bh1750 = &bh1750_sensor;          /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:9 */
+		dht11 = &dht11_sensor;            /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:10 */
 	};
 
 	/* node '/soc' defined in zephyr\dts\arm\armv7-m.dtsi:6 */
@@ -201,9 +204,9 @@
 			reg = < 0x40066000 0x1000 >;      /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:169 */
 			interrupts = < 0x18 0x0 >;        /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:170 */
 			clocks = < &sim 0x2 0x1034 0x6 >; /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:171 */
-			status = "okay";                  /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:136 */
-			pinctrl-0 = < &i2c0_default >;    /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:137 */
-			pinctrl-names = "default";        /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:138 */
+			status = "okay";                  /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:67 */
+			pinctrl-0 = < &i2c0_default >;    /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:68 */
+			pinctrl-names = "default";        /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:69 */
 
 			/* node '/soc/i2c@40066000/fxos8700@1d' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:140 */
 			fxos8700: fxos8700@1d {
@@ -211,6 +214,14 @@
 				reg = < 0x1d >;                  /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:142 */
 				int1-gpios = < &gpioc 0x6 0x1 >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:143 */
 				int2-gpios = < &gpioc 0xd 0x1 >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:144 */
+			};
+
+			/* node '/soc/i2c@40066000/bh1750@23' defined in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:71 */
+			bh1750_sensor: bh1750@23 {
+				compatible = "rohm,bh1750";    /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:72 */
+				reg = < 0x23 >;                /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:73 */
+				status = "okay";               /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:74 */
+				label = "BH1750 Light Sensor"; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:75 */
 			};
 		};
 
@@ -390,8 +401,16 @@
 			gpio-controller;                 /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:312 */
 			#gpio-cells = < 0x2 >;           /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:313 */
 			nxp,kinetis-port = < &portc >;   /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:314 */
-			status = "okay";                 /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:218 */
+			status = "okay";                 /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:82 */
 			phandle = < 0x5 >;               /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:143 */
+
+			/* node '/soc/gpio@400ff080/dht11' defined in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:84 */
+			dht11_sensor: dht11 {
+				compatible = "aosong,dht";       /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:85 */
+				dio-gpios = < &gpioc 0x3 0x11 >; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:88 */
+				status = "okay";                 /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:91 */
+				label = "DHT11 Humidity Sensor"; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:92 */
+			};
 		};
 
 		/* node '/soc/gpio@400ff0c0' defined in zephyr\dts\arm\nxp\nxp_k6x.dtsi:317 */
@@ -432,15 +451,15 @@
 			clocks = < &sim 0x2 0x103c 0xc >; /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:345 */
 			#address-cells = < 0x1 >;         /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:346 */
 			#size-cells = < 0x0 >;            /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:347 */
-			status = "okay";                  /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:24 */
-			pinctrl-0 = < &spi0_default >;    /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:25 */
-			pinctrl-names = "default";        /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:26 */
+			status = "okay";                  /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:33 */
+			pinctrl-0 = < &spi0_default >;    /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:34 */
+			pinctrl-names = "default";        /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:35 */
 
-			/* node '/soc/spi@4002c000/spi-device@0' defined in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:28 */
+			/* node '/soc/spi@4002c000/spi-device@0' defined in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:37 */
 			my_spi_device: spi-device@0 {
-				compatible = "vnd,spi-device";   /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:29 */
-				reg = < 0x0 >;                   /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:30 */
-				spi-max-frequency = < 0xf4240 >; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:31 */
+				compatible = "vnd,spi-device";   /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:38 */
+				reg = < 0x0 >;                   /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:39 */
+				spi-max-frequency = < 0xf4240 >; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:40 */
 			};
 		};
 
@@ -565,10 +584,18 @@
 			clk-source = < 0x0 >;             /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:431 */
 			interrupts = < 0x27 0x0 >;        /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:432 */
 			#io-channel-cells = < 0x1 >;      /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:434 */
-			status = "okay";                  /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:115 */
 			pinctrl-0 = < &adc0_default >;    /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:116 */
 			pinctrl-names = "default";        /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:117 */
-			phandle = < 0x1d >;               /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:54 */
+			status = "okay";                  /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:47 */
+			phandle = < 0x15 >;               /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:53 */
+
+			/* node '/soc/adc@4003b000/lm35' defined in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:49 */
+			lm35_sensor: lm35 {
+				compatible = "lm35";               /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:50 */
+				io-channels = < &adc0 0x6 >;       /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:53 */
+				status = "okay";                   /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:55 */
+				label = "LM35 Temperature Sensor"; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:56 */
+			};
 		};
 
 		/* node '/soc/adc@400bb000' defined in zephyr\dts\arm\nxp\nxp_k6x.dtsi:437 */
@@ -651,7 +678,7 @@
 				status = "okay";                   /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:271 */
 				pinctrl-0 = < &pinmux_enet_mdio >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:272 */
 				pinctrl-names = "default";         /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:273 */
-				phandle = < 0x16 >;                /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:485 */
+				phandle = < 0x17 >;                /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:485 */
 
 				/* node '/soc/ethernet@400c0000/mdio/phy@0' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:274 */
 				phy: phy@0 {
@@ -659,7 +686,7 @@
 					reg = < 0x0 >;                           /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:276 */
 					status = "okay";                         /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:277 */
 					microchip,interface-type = "rmii-25MHz"; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:278 */
-					phandle = < 0x19 >;                      /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:264 */
+					phandle = < 0x1a >;                      /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:264 */
 				};
 			};
 
@@ -672,7 +699,7 @@
 				status = "okay";                   /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:283 */
 				pinctrl-0 = < &pinmux_ptp >;       /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:284 */
 				pinctrl-names = "default";         /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:285 */
-				phandle = < 0x17 >;                /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:486 */
+				phandle = < 0x18 >;                /* in zephyr\dts\arm\nxp\nxp_k6x.dtsi:486 */
 			};
 		};
 
@@ -859,7 +886,7 @@
 
 		/* node '/pinctrl/adc1_default' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:21 */
 		adc1_default: adc1_default {
-			phandle = < 0x15 >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:122 */
+			phandle = < 0x16 >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:122 */
 
 			/* node '/pinctrl/adc1_default/group0' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:22 */
 			group0 {
@@ -871,7 +898,7 @@
 
 		/* node '/pinctrl/pinmux_enet' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:29 */
 		pinmux_enet: pinmux_enet {
-			phandle = < 0x18 >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:262 */
+			phandle = < 0x19 >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:262 */
 
 			/* node '/pinctrl/pinmux_enet/group1' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:30 */
 			group1 {
@@ -889,7 +916,7 @@
 
 		/* node '/pinctrl/pinmux_enet_mdio' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:43 */
 		pinmux_enet_mdio: pinmux_enet_mdio {
-			phandle = < 0x1a >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:272 */
+			phandle = < 0x1b >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:272 */
 
 			/* node '/pinctrl/pinmux_enet_mdio/group0' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:44 */
 			group0 {
@@ -910,7 +937,7 @@
 
 		/* node '/pinctrl/pinmux_ptp' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:58 */
 		pinmux_ptp: pinmux_ptp {
-			phandle = < 0x1b >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:284 */
+			phandle = < 0x1c >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:284 */
 
 			/* node '/pinctrl/pinmux_ptp/group0' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:59 */
 			group0 {
@@ -924,7 +951,7 @@
 
 		/* node '/pinctrl/flexcan0_default' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:68 */
 		flexcan0_default: flexcan0_default {
-			phandle = < 0x1c >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:290 */
+			phandle = < 0x1d >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:290 */
 
 			/* node '/pinctrl/flexcan0_default/group0' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:69 */
 			group0 {
@@ -969,7 +996,7 @@
 
 		/* node '/pinctrl/i2c0_default' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:99 */
 		i2c0_default: i2c0_default {
-			phandle = < 0x4 >; /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:137 */
+			phandle = < 0x4 >; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:68 */
 
 			/* node '/pinctrl/i2c0_default/group0' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:100 */
 			group0 {
@@ -996,7 +1023,7 @@
 
 		/* node '/pinctrl/spi0_default' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:121 */
 		spi0_default: spi0_default {
-			phandle = < 0xf >; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:25 */
+			phandle = < 0xf >; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:34 */
 
 			/* node '/pinctrl/spi0_default/group0' defined in zephyr\boards\nxp\frdm_k64f\frdm_k64f-pinctrl.dtsi:122 */
 			group0 {
@@ -1138,20 +1165,20 @@
 		           < 0x15 0x0 &gpioe 0x18 0x0 >;   /* in zephyr\boards\nxp\frdm_k64f\frdm_k64f.dts:70 */
 	};
 
-	/* node '/io_pins' defined in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:8 */
+	/* node '/io_pins' defined in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:14 */
 	io_pins {
-		compatible = "gpio-leds"; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:9 */
+		compatible = "gpio-leds"; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:15 */
 
-		/* node '/io_pins/cmd_data' defined in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:10 */
+		/* node '/io_pins/cmd_data' defined in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:17 */
 		cmd_data: cmd_data {
-			gpios = < &gpioc 0x5 0x0 >; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:11 */
-			label = "LCD Cmd_Data";     /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:12 */
+			gpios = < &gpioc 0x5 0x0 >; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:19 */
+			label = "LCD Cmd_Data";     /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:20 */
 		};
 
-		/* node '/io_pins/reset_sign' defined in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:15 */
+		/* node '/io_pins/reset_sign' defined in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:23 */
 		reset_sign: reset_sign {
-			gpios = < &gpioc 0x7 0x0 >; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:16 */
-			label = "LCD reset";        /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:17 */
+			gpios = < &gpioc 0x7 0x0 >; /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:25 */
+			label = "LCD Reset";        /* in ..\nokia_lcd_zephyr\boards\frdm_k64f.overlay:26 */
 		};
 	};
 };
